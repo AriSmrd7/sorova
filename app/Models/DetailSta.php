@@ -10,7 +10,7 @@ class DetailSta extends Model
     use HasFactory;
 
     protected $table = 'tb_detail_stationing';
-    protected $primaryKey = 'id_sta';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     protected $fillable = [
         'id_sta',
