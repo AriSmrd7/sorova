@@ -59,13 +59,6 @@
                                                     @csrf
                                                     <input type="hidden" name="id_sta" value="12"/>
                                                     <tbody>
-                                                            <tr>
-                                                                <td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="jumlah_lubang"  name="jumlah_lubang[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[0]" required/></td>
-                                                            </tr>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
@@ -97,7 +90,7 @@
         $('#addRow').on('click', function() {
             var totalrow = $('#segmen').val();
             for (let i = 0; i < totalrow; i++) {
-                $("#addedFields").append('<tr><td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang" name="panjang[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar" name="lebar[' + i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" placeholder="0" name="bekas_roda[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0" name="retak[' + i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+                $("#addedFields").append('<tr><td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="retak[' + i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
             }
         });
         $(document).on('click', '.remove-field', function () {            
