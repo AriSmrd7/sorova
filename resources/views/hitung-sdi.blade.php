@@ -59,6 +59,13 @@
                                                     @csrf
                                                     <input type="hidden" name="id_sta" value="12"/>
                                                     <tbody>
+                                                            <tr>
+                                                                <td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="addmore[0][panjang]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="addmore[0][lebar]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="jumlah_lubang"  name="addmore[0][jumlah_lubang]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="addmore[0][bekas_roda]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="addmore[0][lebar_retak]" required/></td>
+                                                            </tr>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
@@ -86,11 +93,10 @@
 <script>
   var $ = jQuery.noConflict();
   $(document).ready(function() {
-
         $('#addRow').on('click', function() {
             var totalrow = $('#segmen').val();
             for (let i = 0; i < totalrow; i++) {
-                $("#addedFields").append('<tr><td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="retak[' + i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+                $("#addedFields").append('<tr><td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="addmore[' + i + '][panjang]" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="addmore[' + i + '][lebar]" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="addmore[' + i + '][jumlah_lubang]" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="addmore[' + i + '][bekas_roda]" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="addmore[' + i + '][lebar_retak]" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
             }
         });
         $(document).on('click', '.remove-field', function () {            
@@ -117,7 +123,6 @@
         $('#retak').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
         });
-
     });
 </script>
 @endpush
