@@ -17,8 +17,16 @@
                                     <div class="col-sm-4">
                                         <select name="stationing" id="stationing" class="form-control">
                                             <option disabled selected>Pilih stationing...</option>
-                                            <option value="">5000+100</option>
-                                            <option value="">5000+200</option>
+                                            <option value="">5+000</option>
+                                            <option value="">5+100</option>
+                                            <option value="">5+200</option>
+                                            <option value="">5+300</option>
+                                            <option value="">5+400</option>
+                                            <option value="">5+500</option>
+                                            <option value="">5+600</option>
+                                            <option value="">5+700</option>
+                                            <option value="">5+800</option>
+                                            <option value="">5+900</option>
                                         </select>
                                     </div>
                                     <label for="segmen" class="col-xs-2 offset-md-1 col-form-label">
@@ -40,10 +48,10 @@
                                             <table class="table" style="table-layout: auto;"  id="addedFields"> 
                                                 <thead>
                                                     <tr>
-                                                    <td colspan="2" class="text-muted">Luas Retak</td>
+                                                    <td colspan="2" class="text-muted">Luas Retak (m<sup>2</sup>)</td>
                                                     <td class="text-muted">Jumlah Lubang</td>
-                                                    <td class="text-muted">Bekas Roda</td>
-                                                    <td class="text-muted">Lebar Retak</td>
+                                                    <td class="text-muted">Bekas Roda (cm)</td>
+                                                    <td class="text-muted">Lebar Retak (mm)</td>
                                                     <td class="text-muted">#</td>
                                                     </tr>
                                                 </thead>
@@ -52,11 +60,11 @@
                                                     <input type="hidden" name="id_sta" value="12"/>
                                                     <tbody>
                                                             <tr>
-                                                                <td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang" name="panjang[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar" name="lebar[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="lubang" placeholder="0" name="lubang[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="bekas" placeholder="0" name="bekas[0]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="retak" placeholder="0" name="retak[0]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[0]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[0]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="lubang"  name="lubang[0]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="bekas" value="0" name="bekas[0]" required/></td>
+                                                                <td><input class="form-control form-control-sm" id="retak" placeholder="0 mm" name="retak[0]" required/></td>
                                                             </tr>
                                                     </tbody>
                                                     <tfoot>

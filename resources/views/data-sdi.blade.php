@@ -30,26 +30,34 @@
                                             <div class="form-group row">
                                                 <label for="ruas" class="col-4 col-form-label">Ruas Jalan</label> 
                                                 <div class="col-8">
-                                                <input id="ruas" name="ruas" placeholder="Masukkan nama jalan" type="text" class="form-control" required="required">
+                                                <input id="ruas"  name="ruas" placeholder="Masukkan nama jalan" type="text" class="form-control" required="required">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="ruas" class="col-4 col-form-label">STA Awal</label> 
-                                                <div class="col-6">
-                                                <input id="ruas" name="sta_awal" placeholder="0" type="text" class="form-control" required="required">
+                                                <div class="col-3">
+                                                <input id="sta_awal" onkeypress="return onlyNumber(event, false)"   maxlength="4" name="sta_awal"  placeholder="0" type="text" class="form-control" required="required">
+                                                </div>
+                                                <span style="font-size: x-large;">+</span>
+                                                <div class="col-3">
+                                                <input id="sta_awal2" onkeypress="return onlyNumber(event, false)"   maxlength="3" name="sta_awal2"  placeholder="0" type="text" class="form-control" required="required">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="ruas" class="col-4 col-form-label">STA Akhir</label> 
-                                                <div class="col-6">
-                                                <input id="ruas" name="sta_akhir" placeholder="0" type="text" class="form-control" required="required">
+                                                <div class="col-3">
+                                                <input id="sta_akhir" onkeypress="return onlyNumber(event, false)"   maxlength="4" name="sta_akhir" placeholder="0" type="text" class="form-control" required="required">
+                                                </div>
+                                                <span style="font-size: x-large;">+</span>
+                                                <div class="col-3">
+                                                <input id="sta_akhir2" onkeypress="return onlyNumber(event, false)"   maxlength="3" name="sta_akhir2" placeholder="0" type="text" class="form-control" required="required">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="lebar" class="col-4 col-form-label">Lebar</label> 
                                                 <div class="col-6">
                                                 <div class="input-group">
-                                                    <input id="lebar" name="lebar" placeholder="0" type="number" class="form-control" required="required"> 
+                                                    <input id="lebar" name="lebar" min="0" placeholder="0" type="number" class="form-control" required="required"> 
                                                     <div class="input-group-append">
                                                     <div class="input-group-text">Meter</div>
                                                     </div>
@@ -131,4 +139,29 @@
             frame.src = "";
         }
     </script>
+
+    <script type="text/javascript">
+        function onlyNumber(e,decimal){
+                    var key;
+                    var keychar;
+                    if(window.event){
+                        key = window.event.keyCode;
+                    }else
+                        if(e){
+                            key = e.which;
+                        }else return true;
+                        
+                        keychar = String.fromCharCode(key);
+                        if((key==null) || (key==0) || (key==8) || (key==9) || (key==13) || (key==27)){
+                            return true;
+                        }else
+                            if((("0123456789").indexOf(keychar)>-1)){
+                                return true;
+                            }else
+                                if(decimal && (keychar ==".")){
+                                    return true;
+                                }else return false;
+            }
+
+        </script>
 @endpush
