@@ -45,6 +45,9 @@
 
                                 <!--body content-->
                                         <div class="row col-md-12 mb-2 mt-5">
+                                        <form method="POST" id="formSta">
+                                         @csrf
+                                         <span id="result"></span>
                                             <table class="table" style="table-layout: auto;"  id="addedFields"> 
                                                 <thead>
                                                     <tr>
@@ -55,30 +58,17 @@
                                                     <td class="text-muted">#</td>
                                                     </tr>
                                                 </thead>
-                                                <form method="POST" action="{{ route('save-stationing') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="id_sta" value="12"/>
                                                     <tbody>
-                                                            <tr>
-                                                                <td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="addmore[0][panjang]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="addmore[0][lebar]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="jumlah_lubang"  name="addmore[0][jumlah_lubang]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="addmore[0][bekas_roda]" required/></td>
-                                                                <td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="addmore[0][lebar_retak]" required/></td>
-                                                            </tr>
                                                     </tbody>
                                                     <tfoot>
-                                                        <tr>
-                                                            <td>
-                                                                <button class="btn btn-secondary">Sebelumnya</button>
-                                                            </td>
-                                                            <td colspan="2">
-                                                                <button class="btn btn-primary" type="submit">Selanjutnya</button>
-                                                            </td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td>
+                                                        <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
+                                                        </td>
+                                                    </tr>
                                                     </tfoot>
-                                                </form>
-                                            </table>
+                                                </table>
+                                            </form>
                                        </div>
                                 <!--end body content-->
                             </div>
@@ -93,16 +83,37 @@
 <script>
   var $ = jQuery.noConflict();
   $(document).ready(function() {
-        $('#addRow').on('click', function() {
-            var totalrow = $('#segmen').val();
-            for (let i = 0; i < totalrow; i++) {
-                $("#addedFields").append('<tr><td><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="addmore[' + i + '][panjang]" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="addmore[' + i + '][lebar]" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="addmore[' + i + '][jumlah_lubang]" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="addmore[' + i + '][bekas_roda]" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="addmore[' + i + '][lebar_retak]" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+
+        var row_i = 0;
+        function emptyRow(){
+            row_i++;
+            $("#addedFields").append('<tr><td><input type="hidden" name="id_sta[' + row_i + ']" value="12"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+        }
+
+        function refresh(new_count) {
+        var old_count = parseInt($('tbody').children().length);
+        var rows_difference = parseInt(new_count) - old_count;
+            if (rows_difference > 0)
+            {
+                for(var i = 0; i < rows_difference; i++)
+                    $('tbody').append((new emptyRow()).obj);
             }
+            else if (rows_difference < 0)//we need to remove rows ..
+            {
+                var index_start = old_count + rows_difference + 1;          
+                $('tr:gt('+index_start+')').remove();
+                row_i += rows_difference;
+            }
+        }
+
+        $('#addRow').on('click', function() {
+            var seg = $('#segmen').val();
+            refresh(seg);
         });
+
         $(document).on('click', '.remove-field', function () {            
             $(this).parents('tr').remove();
         });
-
 
         $('#panjang').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
@@ -123,6 +134,47 @@
         $('#retak').on('input', function() {
             this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
         });
+
+
+        $('#formSta').on('submit', function(e){
+            e.preventDefault();
+            var formdata = $(this).serialize();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{ route("save-stationing") }}',
+                method:'post',
+                data:formdata,
+                dataType:'json',
+                beforeSend:function(){
+                    $('#save').attr('disabled','disabled');
+                },
+                success:function(data)
+                {
+                    if(data.error)
+                    {
+                        var error_html = '';
+                        for(var count = 0; count < data.error.length; count++)
+                        {
+                            error_html += '<p>'+data.error[count]+'</p>';
+                        }
+                        $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
+                    }
+                    else
+                    {
+                        emptyRow(0);
+                        $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
+                    }
+                    $('#save').attr('disabled', false);
+                }
+            })
+            console.log($(this).serializeArray());
+        });
+
     });
+
 </script>
 @endpush

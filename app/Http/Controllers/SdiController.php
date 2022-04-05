@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DataSdi;
 use App\Models\DetailSta;
 use App\Models\Stationing;
+use Illuminate\Support\Facades\Validator;
 
 class SdiController extends Controller
 {
@@ -33,28 +34,51 @@ class SdiController extends Controller
         return view('hitung-sdi');
     }
 
-    public function saveStationing(Request $request){
-        $request->validate([
-            'id_sta' => 'required',
-            'addmore.*.panjang' => 'required',
-            'addmore.*.lebar' => 'required',
-            'addmore.*.jumlah_lubang' => 'required',
-            'addmore.*.bekas_roda' => 'required',
-            'addmore.*.lebar_retak' => 'required'
-        ]);
-        foreach ($request->addmore as $key => $value) {
-            var_dump($value);
-            exit;
-            $rows = new DetailSta();
-            $rows->id_sta = $request->id_sta;
-            $rows->panjang = $value['panjang'];
-            $rows->lebar = $value['lebar'];
-            $rows->jumlah_lubang = $value['jumlah_lubang'];
-            $rows->bekas_roda = $value['bekas_roda'];
-            $rows->lebar_retak = $value['lebar_retak'];
-            $rows->save();
+    public function saveStationing(Request $request)
+    {
+        if($request->ajax())
+        {
+            $rules = array(
+                'id_sta.*'  => 'required',
+                'panjang.*'  => 'required',
+                'lebar.*'  => 'required',
+                'jumlah_lubang.*'  => 'required',
+                'bekas_roda.*'  => 'required',
+                'lebar_retak.*'  => 'required'
+            );
+            $error = Validator::make($request->all(), $rules);
+            
+            if($error->fails())
+            {
+                return response()->json([
+                    'error'  => $error->errors()->all()
+                ]);
+            }
+
+            $id_sta = $request->id_sta;
+            $panjang = $request->panjang;
+            $lebar = $request->lebar;
+            $jumlah_lubang = $request->jumlah_lubang;
+            $bekas_roda = $request->bekas_roda;
+            $lebar_retak = $request->lebar_retak;
+
+            for($count = 0; $count < count($panjang); $count++)
+            {
+                $data = array(
+                    'id_sta' => $id_sta[$count],
+                    'panjang' => $panjang[$count],
+                    'lebar'  => $lebar[$count],
+                    'jumlah_lubang'  => $jumlah_lubang[$count],
+                    'bekas_roda'  => $bekas_roda[$count],
+                    'lebar_retak'  => $lebar_retak[$count],
+                );
+                $insert_data[] = $data; 
+            }
+
+            DetailSta::insert($insert_data);
+            return response()->json([
+                                'success'  => 'Data Added successfully.'
+                            ]);
         }
-     
-        return back()->with('success', 'New subject has been added.');
     }
 }
