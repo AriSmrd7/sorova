@@ -39,7 +39,7 @@ class SdiController extends Controller
         if($request->ajax())
         {
             $rules = array(
-                'id_sta.*'  => 'required',
+                'id_sta'  => 'required',
                 'panjang.*'  => 'required',
                 'lebar.*'  => 'required',
                 'jumlah_lubang.*'  => 'required',
@@ -62,20 +62,17 @@ class SdiController extends Controller
             $bekas_roda = $request->bekas_roda;
             $lebar_retak = $request->lebar_retak;
 
-            for($count = 0; $count < count($panjang); $count++)
+            foreach($panjang as $key => $value) 
             {
-                $data = array(
-                    'id_sta' => $id_sta[$count],
-                    'panjang' => $panjang[$count],
-                    'lebar'  => $lebar[$count],
-                    'jumlah_lubang'  => $jumlah_lubang[$count],
-                    'bekas_roda'  => $bekas_roda[$count],
-                    'lebar_retak'  => $lebar_retak[$count],
-                );
-                $insert_data[] = $data; 
+                 $item = new DetailSta();
+                 $item->id_sta = $id_sta[$key];
+                 $item->panjang = $panjang[$key];
+                 $item->lebar = $lebar[$key];
+                 $item->jumlah_lubang = $jumlah_lubang[$key];
+                 $item->bekas_roda = $bekas_roda[$key];
+                 $item->lebar_retak = $lebar_retak[$key];
+                 $item ->save();
             }
-
-            DetailSta::insert($insert_data);
             return response()->json([
                                 'success'  => 'Data Added successfully.'
                             ]);

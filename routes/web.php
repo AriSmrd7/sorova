@@ -21,8 +21,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/data-sdi', [App\Http\Controllers\SdiController::class, 'index'])->name('data-sdi')->middleware('auth');
-Route::get('/data-sdi/hitung', [App\Http\Controllers\SdiController::class, 'hitungSdi'])->name('hitung-sdi')->middleware('auth');
-Route::post('/data-sdi/hitung/save', [App\Http\Controllers\SdiController::class, 'saveStationing'])->name('save-stationing');
+Route::get('/data-sdi/hitung', [App\Http\Controllers\SdiController::class, 'hitungSdi'])->name('data-sdi.hitung')->middleware('auth');
+Route::post('/data-sdi/hitung/save', [App\Http\Controllers\SdiController::class, 'saveStationing'])->name('data-sdi.hitung.save');
 
 Route::get('/riwayat', [App\Http\Controllers\RiwayatController::class, 'index'])->name('riwayat')->middleware('auth');
 Route::get('/ekspor', [App\Http\Controllers\EksporController::class, 'index'])->name('ekspor')->middleware('auth');

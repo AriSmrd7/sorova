@@ -60,14 +60,8 @@
                                                 </thead>
                                                     <tbody>
                                                     </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <td>
-                                                        <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
-                                                        </td>
-                                                    </tr>
-                                                    </tfoot>
                                                 </table>
+                                                <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
                                             </form>
                                        </div>
                                 <!--end body content-->
@@ -109,6 +103,7 @@
         $('#addRow').on('click', function() {
             var seg = $('#segmen').val();
             refresh(seg);
+            $('#result').remove();
         });
 
         $(document).on('click', '.remove-field', function () {            
@@ -145,7 +140,7 @@
                 }
             });
             $.ajax({
-                url:'{{ route("save-stationing") }}',
+                url:'{{ route("data-sdi.hitung.save") }}',
                 method:'post',
                 data:formdata,
                 dataType:'json',
@@ -161,18 +156,45 @@
                         {
                             error_html += '<p>'+data.error[count]+'</p>';
                         }
-                        $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
+                        warningAdd();
                     }
                     else
                     {
-                        emptyRow(0);
-                        $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
+                        refresh(0);
+                        $('#id_sta').val('');
+                        $('#panjang').val('');
+                        $('#lebar').val('');
+                        $('#jumlah_lubang').val('');
+                        $('#bekas_roda').val('');
+                        $('#lebar_retak').val('');                        
+                        $('#segmen').val('1');                        
+                        successAdd()
                     }
                     $('#save').attr('disabled', false);
                 }
             })
-            console.log($(this).serializeArray());
         });
+
+        function successAdd(){
+          Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Data Stationing berhasil disimpan',
+              showConfirmButton: true,
+              confirmButtonColor: '#3085d6'
+            })  
+        }
+
+        function warningAdd(){
+          Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Error',
+              text: 'Data gagal disimpan!',
+              showConfirmButton: true,
+              confirmButtonColor: '#3085d6'
+            })  
+        }
 
     });
 
