@@ -54,7 +54,9 @@
                                                     <tbody>
                                                     </tbody>
                                                 </table>
-                                                <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
+                                                <button type="submit" name="save" id="save" class="btn btn-primary">
+                                                    <i class="fa fa-save"></i> Simpan Stationing
+                                                </button>
                                        </div>
                                 <!--end body content-->
                                 </form>
@@ -82,7 +84,7 @@
         var row_i = 0;
         function emptyRow(){
             row_i++;
-            $("#addedFields").append('<tr><td><input type="hidden" value="120" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+            $("#addedFields").append('<tr><td><input type="hidden" value="120" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
         }
 
         function refresh(new_count) {
@@ -110,27 +112,6 @@
         $(document).on('click', '.remove-field', function () {            
             $(this).parents('tr').remove();
         });
-
-        $('#panjang').on('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-        });
-
-        $('#lebar').on('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-        });
-
-        $('#lubang').on('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-        });
-
-        $('#bekas').on('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-        });
-
-        $('#retak').on('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-        });
-
 
         $('#formSta').on('submit', function(e){
             e.preventDefault();
@@ -202,5 +183,28 @@
 
     });
 
+</script>
+
+<script>
+    function isNumberKey(evt, element) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8))
+        return false;
+    else {
+        var len = $(element).val().length;
+        var index = $(element).val().indexOf('.');
+        if (index > 0 && charCode == 46) {
+        return false;
+        }
+        if (index > 0) {
+        var CharAfterdot = (len + 1) - index;
+        if (CharAfterdot > 3) {
+            return false;
+        }
+        }
+
+    }
+    return true;
+    }
 </script>
 @endpush
