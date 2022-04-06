@@ -9,34 +9,29 @@
                                 <strong class="card-title">Hitung Data SDI</strong>
                             </div>
                             <div class="card-body">
+                            <form method="POST" id="formSta">
+                            @csrf
                                 <!--head content-->
                                 <div class="form-group row col-md-12">
                                     <label for="stationing" class="col-xs-2 col-form-label">
                                         <strong class="text-muted">Stationing</strong>
                                     </label> 
-                                    <div class="col-sm-4">
-                                        <select name="stationing" id="stationing" class="form-control">
+                                    <div class="col-sm-4 mt-1">
+                                        <select name="stationing" id="stationing" class="form-control js-example-basic-single">
                                             <option disabled selected>Pilih stationing...</option>
-                                            <option value="">5+000</option>
-                                            <option value="">5+100</option>
-                                            <option value="">5+200</option>
-                                            <option value="">5+300</option>
-                                            <option value="">5+400</option>
-                                            <option value="">5+500</option>
-                                            <option value="">5+600</option>
-                                            <option value="">5+700</option>
-                                            <option value="">5+800</option>
-                                            <option value="">5+900</option>
+                                            @foreach ($dataSta as $rowSta)
+                                            <option value="{{$rowSta->nama_sta}}" data-value="{{$rowSta->nama_sta}}">{{substr_replace($rowSta->nama_sta, '+', 1, 0)}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <label for="segmen" class="col-xs-2 offset-md-1 col-form-label">
                                         <strong class="text-muted">Segmen</strong>
                                     </label> 
-                                    <div class="col-sm-2">
-                                        <input id="segmen" min="1" name="segmen" placeholder="0" type="number" class="form-control" required="required">
+                                    <div class="col-sm-2 mt-1 mb-2">
+                                        <input id="segmen" min="1" name="segmen" placeholder="0" type="number" class="form-control form-control-sm" required="required">
                                     </div>
-                                    <div class="col-sm-2">
-                                        <button id="addRow" type="button" class="btn btn-primary">
+                                    <div class="col-sm-2 mt-1">
+                                        <button id="addRow" type="button" class="btn btn-sm btn-primary">
                                             <i class="fa fa-plus"></i> Add
                                         </button>
                                     </div>
@@ -45,8 +40,7 @@
 
                                 <!--body content-->
                                         <div class="row col-md-12 mb-2 mt-5">
-                                        <form method="POST" id="formSta">
-                                         @csrf
+
                                          <span id="result"></span>
                                             <table class="table" style="table-layout: auto;"  id="addedFields"> 
                                                 <thead>
@@ -62,9 +56,9 @@
                                                     </tbody>
                                                 </table>
                                                 <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
-                                            </form>
                                        </div>
                                 <!--end body content-->
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -78,10 +72,12 @@
   var $ = jQuery.noConflict();
   $(document).ready(function() {
 
+        $('.js-example-basic-single').select2();
+
         var row_i = 0;
         function emptyRow(){
             row_i++;
-            $("#addedFields").append('<tr><td><input type="hidden" name="id_sta[' + row_i + ']" value="12"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+            $("#addedFields").append('<tr><td><input type="hidden" value="120" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
         }
 
         function refresh(new_count) {

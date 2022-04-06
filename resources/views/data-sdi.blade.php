@@ -9,7 +9,21 @@
                                 <strong class="card-title">Data Penelitian SDI</strong>
                             </div>
                             <div class="card-body">
-                                <form id="dataRiset" method="POST" action="{{route('data-sdi.insert')}}">
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li><small>{{ $error }}</small></li>
+                                            @endforeach
+                                        </ul>                                
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
+                                
+                                <form id="dataRiset" method="POST" action="{{route('data-sdi.insert')}}" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id_data" value="{{$id}}">
                                     <div class="row col-lg-12">
@@ -23,7 +37,7 @@
                                                         <i class="fa fa-folder-open"></i>
                                                         Pilih Gambar
                                                     </div>
-                                                    <input class="form-control" type="file" name="foto" id="formFile" onchange="preview()" hidden>
+                                                    <input class="form-control" type="file" name="foto_map" id="formFile" onchange="preview()" hidden>
                                                 </label>
                                             </div>
                                         </div>
@@ -53,7 +67,8 @@
                                                         <option value="700">700</option>
                                                         <option value="800">800</option>
                                                         <option value="900">900</option>
-                                                    </select>                                                </div>
+                                                    </select>                                                
+                                                </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="ruas" class="col-4 col-form-label">STA Akhir</label> 
@@ -92,10 +107,10 @@
                                                 <div class="col-8">
                                                 <select id="lajur" name="lajur" class="form-control" required="required">
                                                     <option disabled selected><i class="text-muted">Pilih jumlah lajur...</i></option>
-                                                    <option value="1 Lajur">1 Lajur</option>
-                                                    <option value="2 Lajur">2 Lajur</option>
-                                                    <option value="3 Lajur">3 Lajur</option>
-                                                    <option value="4 Lajur">4 Lajur</option>
+                                                    <option value="1">1 Lajur</option>
+                                                    <option value="2">2 Lajur</option>
+                                                    <option value="3">3 Lajur</option>
+                                                    <option value="4">4 Lajur</option>
                                                 </select>
                                                 </div>
                                             </div>
@@ -104,9 +119,9 @@
                                                 <div class="col-8">
                                                 <select id="jalur" name="jalur" class="form-control" required="required">
                                                     <option disabled selected><i class="text-muted">Pilih jumlah jalur...</i></option>
-                                                    <option value="1 Jalur">1 Jalur</option>
-                                                    <option value="2 Jalur">2 Jalur</option>
-                                                    <option value="3 Jalur">3 Jalur</option>
+                                                    <option value="1">1 Jalur</option>
+                                                    <option value="2">2 Jalur</option>
+                                                    <option value="3">3 Jalur</option>
                                                 </select>
                                                 </div>
                                             </div>
@@ -115,8 +130,8 @@
                                                 <div class="col-8">
                                                 <select id="arah" name="arah" class="form-control" required="required">
                                                     <option disabled selected><i class="text-muted">Pilih jumlah arah...</i></option>
-                                                    <option value="1 Arah">1 Arah</option>
-                                                    <option value="2 Arah">2 Arah</option>
+                                                    <option value="1">1 Arah</option>
+                                                    <option value="2">2 Arah</option>
                                                 </select>
                                                 </div>
                                             </div>
