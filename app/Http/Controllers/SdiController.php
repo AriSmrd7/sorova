@@ -7,6 +7,7 @@ use App\Models\DataSdi;
 use App\Models\DetailSta;
 use App\Models\Stationing;
 use Illuminate\Support\Facades\Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class SdiController extends Controller
 {
@@ -27,11 +28,39 @@ class SdiController extends Controller
      */
     public function index()
     {
-        return view('data-sdi');
+        $prefix = date('ymd').'D-';
+        $id = IdGenerator::generate(['table' => 'tb_data', 'length' => 11, 'prefix' =>$prefix]);
+
+        return view('data-sdi',compact('id'));
     }
 
-    public function hitungSdi(){
-        return view('hitung-sdi');
+    public function saveData(Request $request){
+
+        $id_data =  $request->id_data;
+
+        $items = new DataSdi();
+        $items->id = $id_data;
+        $items->ruas_jalan = $request->ruas;
+        $items->sta_awal =  $request->sta_awal.'+'. $request->sta_awal2;
+        $items->sta_akhir =  $request->sta_akhir.'+'. $request->sta_akhir2;
+        $items->lebar =  $request->lebar;
+        $items->jumlah_lajur = $request->lajur;
+        $items->jumlah_jalur =  $request->jalur;
+        $items->jumlah_arah = $request->arah;
+        $items->tipe_perkerasan = $request->tipe;
+        $items->foto_map = 'test.png';
+        $items->save();
+
+        
+        return redirect()->route('data-sdi.hitung',$id_data);
+
+    }
+
+    public function hitungSdi($id){
+
+        $sta = DataSdi::where('id',$id)->first();
+
+        return view('hitung-sdi',compact('sta'));
     }
 
     public function saveStationing(Request $request)

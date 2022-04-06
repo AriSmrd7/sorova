@@ -9,7 +9,9 @@
                                 <strong class="card-title">Data Penelitian SDI</strong>
                             </div>
                             <div class="card-body">
-                                <form id="dataRiset" method="POST" action="">
+                                <form id="dataRiset" method="POST" action="{{route('data-sdi.insert')}}">
+                                    @csrf
+                                    <input type="hidden" name="id_data" value="{{$id}}">
                                     <div class="row col-lg-12">
                                         <div class="col-md-4">
                                             <div class="img-bg">
@@ -21,7 +23,7 @@
                                                         <i class="fa fa-folder-open"></i>
                                                         Pilih Gambar
                                                     </div>
-                                                    <input class="form-control" type="file" id="formFile" onchange="preview()" hidden>
+                                                    <input class="form-control" type="file" name="foto" id="formFile" onchange="preview()" hidden>
                                                 </label>
                                             </div>
                                         </div>
@@ -40,8 +42,18 @@
                                                 </div>
                                                 <span style="font-size: x-large;">+</span>
                                                 <div class="col-3">
-                                                <input id="sta_awal2" onkeypress="return onlyNumber(event, false)"   maxlength="3" name="sta_awal2"  placeholder="0" type="text" class="form-control" required="required">
-                                                </div>
+                                                <select name="sta_awal2" class="form-control">
+                                                        <option value="000">000</option>
+                                                        <option value="100">100</option>
+                                                        <option value="200">200</option>
+                                                        <option value="300">300</option>
+                                                        <option value="400">400</option>
+                                                        <option value="500">500</option>
+                                                        <option value="600">600</option>
+                                                        <option value="700">700</option>
+                                                        <option value="800">800</option>
+                                                        <option value="900">900</option>
+                                                    </select>                                                </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="ruas" class="col-4 col-form-label">STA Akhir</label> 
@@ -50,7 +62,18 @@
                                                 </div>
                                                 <span style="font-size: x-large;">+</span>
                                                 <div class="col-3">
-                                                <input id="sta_akhir2" onkeypress="return onlyNumber(event, false)"   maxlength="3" name="sta_akhir2" placeholder="0" type="text" class="form-control" required="required">
+                                                    <select name="sta_akhir2" class="form-control">
+                                                        <option value="000">000</option>
+                                                        <option value="100">100</option>
+                                                        <option value="200">200</option>
+                                                        <option value="300">300</option>
+                                                        <option value="400">400</option>
+                                                        <option value="500">500</option>
+                                                        <option value="600">600</option>
+                                                        <option value="700">700</option>
+                                                        <option value="800">800</option>
+                                                        <option value="900">900</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
