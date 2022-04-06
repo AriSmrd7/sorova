@@ -109,7 +109,7 @@ class SdiController extends Controller
         if($request->ajax())
         {
             $rules = array(
-                'id_sta'  => 'required',
+                'stationing'  => 'required',
                 'panjang.*'  => 'required',
                 'lebar.*'  => 'required',
                 'jumlah_lubang.*'  => 'required',
@@ -125,7 +125,7 @@ class SdiController extends Controller
                 ]);
             }
 
-            $id_sta = $request->id_sta;
+            $id_sta = $request->stationing;
             $panjang = $request->panjang;
             $lebar = $request->lebar;
             $jumlah_lubang = $request->jumlah_lubang;
@@ -135,7 +135,7 @@ class SdiController extends Controller
             foreach($panjang as $key => $value) 
             {
                  $item = new DetailSta();
-                 $item->id_sta = $id_sta[$key];
+                 $item->id_sta = $id_sta;
                  $item->panjang = $panjang[$key];
                  $item->lebar = $lebar[$key];
                  $item->jumlah_lubang = $jumlah_lubang[$key];

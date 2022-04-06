@@ -17,8 +17,7 @@
                                         <strong class="text-muted">Stationing</strong>
                                     </label> 
                                     <div class="col-sm-4 mt-1">
-                                        <select name="stationing" id="stationing" class="form-control js-example-basic-single">
-                                            <option disabled selected>Pilih stationing...</option>
+                                        <select data-placeholder="Pilih ..." class="standardSelect" name="stationing" id="stationing" tabindex="1">
                                             @foreach ($dataSta as $rowSta)
                                             <option value="{{$rowSta->nama_sta}}" data-value="{{$rowSta->nama_sta}}">{{substr_replace($rowSta->nama_sta, '+', 1, 0)}}</option>
                                             @endforeach
@@ -72,7 +71,13 @@
   var $ = jQuery.noConflict();
   $(document).ready(function() {
 
-        $('.js-example-basic-single').select2();
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
 
         var row_i = 0;
         function emptyRow(){
@@ -167,6 +172,9 @@
                         successAdd()
                     }
                     $('#save').attr('disabled', false);
+                    var selVal = $('#stationing option:selected').val();
+                    $('select').children('option[value="' + selVal + '"]').remove();
+                    $('#stationing option').trigger('chosen:updated');
                 }
             })
         });
