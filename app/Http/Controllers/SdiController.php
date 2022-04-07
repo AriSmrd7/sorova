@@ -8,6 +8,7 @@ use App\Models\DetailSta;
 use App\Models\Stationing;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 
 class SdiController extends Controller
 {
@@ -99,8 +100,17 @@ class SdiController extends Controller
 
         $sta = DataSdi::where('id',$id)->first();
 
-        $dataSta = Stationing::where('id_data',$id)->get();
-        
+        $dataSta = DB::table('tb_stationing')
+                    ->select('*')
+                    ->whereNotExists(function ($query) {
+                        $query->from('tb_detail_stationing')
+                            ->select('*')
+                            ->where('tb_stationing.nama_sta','=',DB::raw('tb_detail_stationing.id_sta'))
+                            ->where('tb_stationing.id_data','=',DB::raw('tb_detail_stationing.id_data'));
+                    })
+                    ->where('tb_stationing.id_data','=',$id)
+                    ->get();
+
         return view('hitung-sdi',compact('sta','dataSta'));
     }
 
@@ -109,6 +119,7 @@ class SdiController extends Controller
         if($request->ajax())
         {
             $rules = array(
+                'id_data_detail'  => 'required',
                 'stationing'  => 'required',
                 'panjang.*'  => 'required',
                 'lebar.*'  => 'required',
@@ -126,6 +137,7 @@ class SdiController extends Controller
             }
 
             $id_sta = $request->stationing;
+            $id_data_detail = $request->id_data_detail;
             $panjang = $request->panjang;
             $lebar = $request->lebar;
             $jumlah_lubang = $request->jumlah_lubang;
@@ -136,6 +148,7 @@ class SdiController extends Controller
             {
                  $item = new DetailSta();
                  $item->id_sta = $id_sta;
+                 $item->id_data = $id_data_detail;
                  $item->panjang = $panjang[$key];
                  $item->lebar = $lebar[$key];
                  $item->jumlah_lubang = $jumlah_lubang[$key];

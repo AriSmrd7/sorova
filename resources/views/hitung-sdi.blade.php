@@ -7,33 +7,35 @@
                             <h5 class="card-header">Form Input Data Primer</h5>
 
                             <div class="card-body">
-                                <form method="POST" id="formSta">
+                                <form method="POST" id="formSta" class="row g-3">
                                 @csrf
-                                <!--head content-->
-                                <div class="form-group row col-md-12">
+                                <div class="col-auto">
                                     <label for="stationing" class="col-xs-2 col-form-label">
                                         <strong class="text-muted">Stationing</strong>
-                                    </label> 
-                                    <div class="col-sm-4 mt-1">
-                                        <select data-placeholder="Pilih ..." class="standardSelect" name="stationing" id="stationing" tabindex="1">
-                                            @foreach ($dataSta as $rowSta)
-                                            <option value="{{$rowSta->nama_sta}}" data-value="{{$rowSta->nama_sta}}">{{substr_replace($rowSta->nama_sta, '+', 1, 0)}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    </label>                                     
+                                    <select data-placeholder="Pilih ..." class="standardSelect" name="stationing" id="stationing" tabindex="1">
+                                        @foreach ($dataSta as $rowSta)
+                                        <option value="{{$rowSta->nama_sta}}" data-value="{{$rowSta->nama_sta}}">{{substr_replace($rowSta->nama_sta, '+', 1, 0)}}</option>
+                                        @endforeach
+                                    </select>
+                                    @foreach($dataSta as $rowData)
+                                    @endforeach
+                                    <input type="hidden" name="id_data_detail" value="{{$rowData->id_data}}"/>
+                                </div>
+                                <div class="col-auto">
                                     <label for="segmen" class="col-xs-2 offset-md-1 col-form-label">
                                         <strong class="text-muted">Segmen</strong>
-                                    </label> 
-                                    <div class="col-sm-2 mt-1 mb-2">
-                                        <input id="segmen" min="1" name="segmen" placeholder="0" type="number" class="form-control form-control-sm" required="required">
-                                    </div>
-                                    <div class="col-sm-2 mt-1">
-                                        <button id="addRow" type="button" class="btn btn-sm btn-primary">
-                                            <i class="fa fa-plus"></i> Add
-                                        </button>
-                                    </div>
+                                    </label>                                     
+                                    <input id="segmen" min="1" name="segmen" placeholder="0" type="number" class="form-control form-control-sm" required="required">
                                 </div>
-                                <!--end head content-->
+                                <div class="col-auto">
+                                    <label for="s" class="col-xs-2 offset-md-1 col-form-label">
+                                        <strong class="text-muted">Confirm</strong>
+                                    </label>                                        
+                                    <button id="addRow" type="button" class="btn btn-sm btn-primary">
+                                    <span class="tf-icons bx bx-plus-circle"></span> ADD
+                                    </button>                                
+                                </div>
 
                                 <!--body content-->
                                         <div class="row col-md-12 mb-2 mt-5">
@@ -52,9 +54,11 @@
                                                     <tbody>
                                                     </tbody>
                                                 </table>
-                                                <button type="submit" name="save" id="save" class="btn btn-primary">
-                                                    <i class="fa fa-save"></i> Simpan Stationing
-                                                </button>
+                                                <div class="col-md-4 mt-3">
+                                                    <button type="submit" name="save" id="save" class="btn btn-block btn-primary">
+                                                        <span class="tf-icons bx bx-save"></span> SIMPAN STATIONING
+                                                    </button>
+                                                </div>
                                        </div>
                                 <!--end body content-->
                                 </form>
@@ -82,7 +86,7 @@
         var row_i = 0;
         function emptyRow(){
             row_i++;
-            $("#addedFields").append('<tr><td><input type="hidden" value="120" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="fa fa-times text-light"></i></button></td></tr>');
+            $("#addedFields").append('<tr><td><input type="hidden" value="120" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="tf-icons bx bx-trash-alt"></i></button></td></tr>');
         }
 
         function refresh(new_count) {

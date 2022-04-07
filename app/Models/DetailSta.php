@@ -13,6 +13,7 @@ class DetailSta extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     protected $fillable = [
+        'id_data',
         'id_sta',
         'panjang',
         'lebar',
