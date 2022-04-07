@@ -1,86 +1,122 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!DOCTYPE html>
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="{{ asset('new-assets') }}/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <meta name="description" content="Sorova">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" href="{{ asset('assets') }}/images/favicon.png">
-    <link rel="shortcut icon" href="{{ asset('assets') }}/images/favicon.png">
+    <meta name="description" content="" />
     @stack('style')
-    <style>
-        [hidden] {
-            display: none !important;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/lib/chosen/chosen.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css" />
-    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('new-assets') }}/img/favicon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"/>
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ asset('new-assets') }}/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('new-assets') }}/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('new-assets') }}/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('new-assets') }}/css/demo.css" />
     @stack('plugin-styles')
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('new-assets') }}/css/lib/chosen/chosen.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.11.0/sweetalert2.css" />
+    <link rel="stylesheet" href="{{ asset('new-assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <!-- Page CSS -->
+    <!-- Helpers -->
+    <script src="{{ asset('new-assets') }}/vendor/js/helpers.js"></script>
 
-</head>
-<body>
-    <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
-        @include('layouts.sidebar')
-    </aside><!-- /#left-panel -->
-    <!-- Left Panel -->
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ asset('new-assets') }}/js/config.js"></script>
+  </head>
 
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
 
-        <!-- Header-->
-        <header id="header" class="header">
-            @include('layouts.navbar')
-        </header><!-- /header -->
-        <!-- Header-->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <img src="{{asset('new-assets')}}/img/small-logo.png"/>
+              </span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sorova</span>
+            </a>
 
-        <div class="content">
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            @include('layouts.sidebar')
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          @include('layouts.navbar')
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
             @yield('content')
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              @include('layouts.footer')
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
         </div>
-    </div><!-- .animated -->
-</div><!-- .content -->
+        <!-- / Layout page -->
+      </div>
 
-<div class="clearfix"></div>
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+    @stack('plugin-scripts')
+    <script src="{{ asset('new-assets') }}/vendor/libs/jquery/jquery.js"></script>
+    <script src="{{ asset('new-assets') }}/vendor/libs/popper/popper.js"></script>
+    <script src="{{ asset('new-assets') }}/vendor/js/bootstrap.js"></script>
+    <script src="{{ asset('new-assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-<footer class="site-footer">
-    @include('layouts.footer')
-</footer>
-
-</div><!-- /#right-panel -->
-<!-- Right Panel -->
-
-<!-- Scripts -->
-@stack('plugin-scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('assets') }}/js/main.js"></script>
-<script src="{{ asset('assets') }}/js/lib/chosen/chosen.jquery.min.js"></script>
-
-@stack('custom-scripts')
-
-
-</body>
+    @stack('custom-scripts')
+    <script src="{{ asset('new-assets') }}/js/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('new-assets') }}/vendor/js/menu.js"></script>
+    <script src="{{ asset('new-assets') }}/js/main.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 </html>

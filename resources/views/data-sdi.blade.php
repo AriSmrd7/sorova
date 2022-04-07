@@ -1,13 +1,10 @@
 @extends('layouts.master')
 @section('title', 'Sorova - Data Penelitian')
 @section('content')
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-12">
+            <div class="container-xxl flex-grow-1 container-p-y">
+                        <!-- Card -->
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Data Penelitian SDI</strong>
-                            </div>
+                            <h5 class="card-header">Form Input Data Primer</h5>
                             <div class="card-body">
 
                                 @if ($errors->any())
@@ -29,7 +26,7 @@
                                     <div class="row col-lg-12">
                                         <div class="col-md-4">
                                             <div class="img-bg">
-                                                <img  id="frame" src="{{asset('assets/images/notfound.jpg')}}" class="img-fluid" alt="Image">
+                                                <img  id="frame" src="{{asset('new-assets/img/notfound.jpg')}}" class="img-fluid" alt="Image">
                                             </div>
                                             <div class="mb-5 mt-3">
                                                 <label>
@@ -162,8 +159,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    <!--/ Card -->
             </div>
         
 @endsection

@@ -1,16 +1,14 @@
 @extends('layouts.master')
 @section('title', 'Sorova - Hitung Data SDI')
 @section('content')
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-12">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                        <!-- Card -->
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Hitung Data SDI</strong>
-                            </div>
+                            <h5 class="card-header">Form Input Data Primer</h5>
+
                             <div class="card-body">
-                            <form method="POST" id="formSta">
-                            @csrf
+                                <form method="POST" id="formSta">
+                                @csrf
                                 <!--head content-->
                                 <div class="form-group row col-md-12">
                                     <label for="stationing" class="col-xs-2 col-form-label">
@@ -61,10 +59,10 @@
                                 <!--end body content-->
                                 </form>
                             </div>
+
                         </div>
-                    </div>
+                        <!--/ Card -->
                 </div>
-            </div>
         
 @endsection
 
