@@ -21,4 +21,10 @@ class DetailSta extends Model
         'bekas_roda',
         'lebar_retak'
     ];
+
+    public function bagiPanjang($panjang){
+        $hasil = $panjang / 100;
+
+        return $hasil;
+    }
 }

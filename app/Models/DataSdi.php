@@ -22,6 +22,7 @@ class DataSdi extends Model
         'jumlah_jalur',
         'jumlah_arah',
     	'tipe_perkerasan',
-        'foto_map'	
+        'foto_map',
+        'id_user'
     ];
 }
