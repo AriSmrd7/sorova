@@ -24,13 +24,14 @@
                                     @csrf
                                     <input type="hidden" name="id_data" value="{{$id}}">
                                     <div class="row col-lg-12">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
+                                            <label for="img" class="col-form-label">Foto Map</label> 
                                             <div class="img-bg">
-                                                <img  id="frame" src="{{asset('new-assets/img/notfound.jpg')}}" class="img-fluid" alt="Image">
+                                                <img  id="frame" src="{{asset('new-assets/img/notfound.jpg')}}" width="100%" height="80%" class="img-fluid" alt="Image" style="border: 1px solid #E0E0E0;">
                                             </div>
                                             <div class="mb-5 mt-3">
                                                 <label>
-                                                    <div class="btn btn-info">
+                                                    <div class="btn btn-sm btn-info">
                                                         <span class="tf-icons bx bx-folder-open"></span>
                                                         Pilih Gambar
                                                     </div>
@@ -39,7 +40,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-9">
+                                        <div class="col-md-7 offset-md-1">
                                             <div class="form-group row mb-2">
                                                 <label for="ruas" class="col-md-4 col-form-label">Ruas Jalan</label> 
                                                 <div class="col-md-8">
