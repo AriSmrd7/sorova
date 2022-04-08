@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Stationing extends Model
 {
@@ -25,4 +26,18 @@ class Stationing extends Model
                 'jumlah_lubang',
                 'persen_luas_retak'	
             ];
+
+    public static function checkLastRows($id){
+        $count = DB::table('tb_stationing')
+                    ->select('*')
+                    ->whereNotExists(function ($query) {
+                        $query->from('tb_detail_stationing')
+                            ->select('*')
+                            ->where('tb_stationing.nama_sta','=',DB::raw('tb_detail_stationing.id_sta'))
+                            ->where('tb_stationing.id_data','=',DB::raw('tb_detail_stationing.id_data'));
+                    })
+                    ->where('tb_stationing.id_data','=',$id)
+                    ->get();
+        return $count->count();
+    }
 }

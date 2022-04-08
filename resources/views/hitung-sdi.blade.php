@@ -14,6 +14,7 @@
                                         <strong class="text-muted">Stationing</strong>
                                     </label>                                     
                                     <select data-placeholder="Pilih ..." class="standardSelect" name="stationing" id="stationing" tabindex="1">
+                                        <option>Pilih ...</option>
                                         @foreach ($dataSta as $rowSta)
                                         <option value="{{$rowSta->nama_sta}}" data-value="{{$rowSta->nama_sta}}">{{substr_replace($rowSta->nama_sta, '+', 1, 0)}}</option>
                                         @endforeach
