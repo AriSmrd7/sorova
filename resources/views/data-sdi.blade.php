@@ -8,15 +8,14 @@
                             <div class="card-body">
 
                                 @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <small>Data gagal disimpan. Kesalahan yang perlu diperbaiki :</small>
                                         <ul>
                                             @foreach ($errors->all() as $error)
                                                 <li><small>{{ $error }}</small></li>
                                             @endforeach
-                                        </ul>                                
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        </ul>                                           
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 @endif
                                 

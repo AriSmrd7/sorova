@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DataSdi;
 use App\Models\DetailSta;
 use App\Models\Stationing;
+use App\Models\TempForLuas;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class SdiController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,6 +27,7 @@ class SdiController extends Controller
         $this->_Stationing = new Stationing();
         $this->_detailSta = new DetailSta();
         $this->_dataSdi = new DataSdi();
+        $this->_tempForLuas = new TempForLuas();
     }
 
     /**
@@ -54,15 +57,15 @@ class SdiController extends Controller
             'foto_map' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ],
         [
-            'ruas.required' => 'kolom ruas jalan tidak boleh dikosongkan',
-            'sta_awal.required' => 'kolom STA awal tidak boleh dikosongkan',
-            'sta_akhir.required' => 'kolom STA akhir tidak boleh dikosongkan',
+            'ruas.required' => 'Kolom ruas jalan tidak boleh dikosongkan',
+            'sta_awal.required' => 'Kolom STA awal tidak boleh dikosongkan',
+            'sta_akhir.required' => 'Kolom STA akhir tidak boleh dikosongkan',
             'lebar.required' => 'kolom lebar tidak boleh dikosongkan',
-            'lajur.required' => 'pilih salah satu jumlah lajur',
-            'lajur.required' => 'pilih salah satu jumlah lajur',
-            'arah.required' => 'pilih salah satu jumlah arah',
-            'tipe.required' => 'pilih salah satu tipe perkerasan',
-            'foto_map.required' => 'Mohon unggah gambar dengan benar',
+            'lajur.required' => 'Jumlah lajur belum dipilih',
+            'jalur.required' => 'Jumlah jalur belum dipilih',
+            'arah.required' => 'Jumlah arah belum dipilih',
+            'tipe.required' => 'Tipe perkerasan belum dipilih',
+            'foto_map.required' => 'Gambar belum diunggah dengan benar',
         ]
         );
 
