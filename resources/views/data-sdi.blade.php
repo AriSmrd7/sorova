@@ -71,7 +71,7 @@
                                                 <label for="ruas" class="col-md-4 col-form-label">STA Akhir</label> 
                                                 <div class="col-md-5">
                                                 <div class="input-group input-group-sm">
-                                                    <input id="sta_awal" onkeypress="return onlyNumber(event, false)"   maxlength="4" name="sta_akhir"  placeholder="0" type="text" class="form-control" required="required">
+                                                    <input id="sta_akhir" onkeypress="return onlyNumber(event, false)"   maxlength="4" name="sta_akhir"  placeholder="0" type="text" class="form-control" required="required">
                                                     <span class="input-group-text">+</span>
                                                     <select name="sta_akhir2" class="form-select">
                                                         <option value="000">000</option>
@@ -86,6 +86,9 @@
                                                         <option value="900">900</option>
                                                     </select>       
                                                 </div>
+                                                    <span style="display: none;" id="errorAkhir">
+                                                        <small class="text-danger" style="font-size: x-small;">Tidak boleh lebih kecil dari STA Awal</small>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-2">
@@ -142,7 +145,7 @@
                                             </div> 
                                             <div class="form-group row mt-3">
                                                 <div class="d-grid gap-2 d-md-block">
-                                                    <button name="submit" type="submit" class="btn btn-block btn-primary">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#backDropModal">
                                                     <span class="tf-icons bx bx-save"></span>  Simpan
                                                     </button>
                                                 </div>
@@ -153,6 +156,40 @@
                             </div>
                         </div>
                     <!--/ Card -->
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <form class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="backDropModalTitle">Konfirmasi</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-0">
+                                    <p>Pastikan data yang telah diinput sudah benar.</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Batal
+                                </button>
+                                <button type="submit" form="dataRiset" class="btn btn-primary">
+                                    Simpan
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <!--modal-->
+
             </div>
         
 @endsection
@@ -213,5 +250,36 @@
     }
     return true;
     }
+</script>
+
+<script>
+    $(document).ready (function () {
+        $('#saveData').on('click', function () {
+            $('#dataRiset').submit(function(){return true;});
+        });
+
+        $("input[type='text'][name='sta_akhir']").change(function() {
+            var awal = $('#sta_awal').val();
+            if ($(this).val() < awal) {
+                $('#errorAkhir').show();
+                $(this).val('');
+                $(this).focus();
+            }
+            else{
+                $('#errorAkhir').hide();
+            }        
+        }); 
+        $("input[type='text'][name='sta_awal']").change(function() {
+            var awal = $('#sta_akhir').val();
+            if ($(this).val() > awal) {
+                $('#errorAkhir').show();
+                $(this).val('');
+                $(this).focus();
+            }
+            else{
+                $('#errorAkhir').hide();
+            }        
+        }); 
+    });
 </script>
 @endpush
