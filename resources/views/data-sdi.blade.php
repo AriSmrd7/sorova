@@ -258,28 +258,27 @@
             $('#dataRiset').submit(function(){return true;});
         });
 
-        $("input[type='text'][name='sta_akhir']").change(function() {
-            var awal = $('#sta_awal').val();
-            if ($(this).val() < awal) {
+        $("input[type='text'][name='sta_akhir']").on('change',function() {
+            onValidateSta();
+         });
+        $("input[type='text'][name='sta_awal']").on('change',function() {
+            onValidateSta();
+        });
+        
+        function onValidateSta(){
+            var awal = $('#sta_awal');
+            var akhir = $('#sta_akhir');
+            if (akhir.val() < awal.val()) {
                 $('#errorAkhir').show();
-                $(this).val('');
-                $(this).focus();
+                akhir.val('');
+                akhir.focus();
+                return true;
             }
             else{
                 $('#errorAkhir').hide();
-            }        
-        }); 
-        $("input[type='text'][name='sta_awal']").change(function() {
-            var awal = $('#sta_akhir').val();
-            if ($(this).val() > awal) {
-                $('#errorAkhir').show();
-                $(this).val('');
-                $(this).focus();
-            }
-            else{
-                $('#errorAkhir').hide();
-            }        
-        }); 
+                return true;
+            } 
+        }
     });
 </script>
 @endpush
