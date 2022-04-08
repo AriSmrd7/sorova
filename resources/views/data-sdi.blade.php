@@ -268,7 +268,7 @@
         function onValidateSta(){
             var awal = $('#sta_awal');
             var akhir = $('#sta_akhir');
-            if (akhir.val() < awal.val()) {
+            if (parseInt(akhir.val()) < parseInt(awal.val())) {
                 $('#errorAkhir').show();
                 akhir.val('');
                 akhir.focus();
