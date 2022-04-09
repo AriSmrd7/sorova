@@ -80,6 +80,11 @@
   var $ = jQuery.noConflict();
   $(document).ready(function() {
     
+        $('#stationing').on('change',function(e){
+            e.preventDefault();
+            var sta = $(this).children('option:selected').data('value');
+            $('#id_sta').val(sta);
+        });
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
                 disable_search_threshold: 10,
@@ -91,7 +96,7 @@
         var row_i = 0;
         function emptyRow(){
             row_i++;
-            $("#addedFields").append('<tr><td><input type="hidden" value="120" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="tf-icons bx bx-trash-alt"></i></button></td></tr>');
+            $("#addedFields").append('<tr><td><input type="hidden" value="" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" placeholder="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="tf-icons bx bx-trash-alt"></i></button></td></tr>');
         }
 
         function refresh(new_count) {
@@ -121,8 +126,10 @@
         });
 
         $('#formSta').on('submit', function(e){
+
             e.preventDefault();
             var formdata = $(this).serialize();
+            console.log($(this).serializeArray());
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

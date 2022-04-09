@@ -38,41 +38,20 @@ class DetailSta extends Model
         return $hasil;
     }
 
-    public static function updateStationing(
-                                            $totalLuas, 
-                                            $luasRetak, 
-                                            $jumlahLubang,
-                                            $sdi_1,
-                                            $sdi_2,
-                                            $sdi_3,
-                                            $sdi_4,
-                                            $sdi_final,
-                                            $id_data,
-                                            $id_sta
-                                            ){
-        $update = DB::table('tb_stationing')
-                    ->where('id_data', $id_data)
-                    ->where('nama_sta', $id_sta)
-                    ->update([
-                            'total_luas' => $totalLuas,
-                            'jumlah_lubang' => $jumlahLubang,
-                            'persen_luas_retak' => $luasRetak,
-                            'sdi_1' => $sdi_1,
-                            'sdi_2' => $sdi_2,
-                            'sdi_3' => $sdi_3,
-                            'sdi_4' => $sdi_4,
-                            'sdi_final' => $sdi_final
-                        ]);
-        if($update){
-            return 'success';
-        }
-        else{
-            return 'gagal';
-        }
-    }
-
     public static function sumLuas(){
         $luas = TempForLuas::sum('luas_row');
+        return $luas;
+    }
+
+    public static function persentaseLuasRetak($luasTotal){
+        $persentase = round(($luasTotal / 530) * 100,5);
+        return $persentase;
+    }
+
+    public static function jumlahLubang($id_data,$id_sta){
+        $luas = DetailSta::where('id_sta',$id_sta)
+                        ->where('id_data',$id_data)
+                        ->sum('luas_row');
         return $luas;
     }
 }

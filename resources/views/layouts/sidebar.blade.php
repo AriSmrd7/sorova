@@ -6,7 +6,7 @@
             </li>
             <li class="menu-item {{ request()->is('riwayat*') ? 'active' : '' }}">
               <a href="{{URL('riwayat')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-analyse"></i>
+                <i class="menu-icon tf-icons bx bx-history"></i>
                 <div data-i18n="Analytics">Riwayat</div>
               </a>
             </li>

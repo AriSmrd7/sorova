@@ -160,15 +160,19 @@ class SdiController extends Controller
 
             foreach($panjang as $key => $value) 
             {
-                 $this->_detailSta->id_sta = $id_sta;
-                 $this->_detailSta->id_data = $id_data_detail;
-                 $this->_detailSta->panjang = $panjang[$key];
-                 $this->_detailSta->lebar = $lebar[$key];
-                 $this->_detailSta->jumlah_lubang = $jumlah_lubang[$key];
-                 $this->_detailSta->bekas_roda = $bekas_roda[$key];
-                 $this->_detailSta->lebar_retak = $lebar_retak[$key];
-                 $this->_detailSta ->save();
+                $data = array(
+                    'id_data' => $id_data_detail,
+                    'id_sta' => $id_sta,
+                    'panjang' => $panjang[$key],
+                    'lebar' => $lebar[$key],
+                    'jumlah_lubang' => $jumlah_lubang[$key],
+                    'bekas_roda' => $bekas_roda[$key],
+                    'lebar_retak' => $lebar_retak[$key],
+                );
+                $insert_data[] = $data; 
             }
+            DetailSta::insert($insert_data);
+
             return response()->json([
                                 'success'  => 'Data Added successfully.'
                             ]);
