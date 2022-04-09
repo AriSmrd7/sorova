@@ -9,7 +9,7 @@
                             <div class="card-body">
                                 <form method="POST" id="formSta" class="row g-3">
                                 @csrf
-                                <div class="col-auto">
+                                <div class="col-auto" id="topField1">
                                     <label for="stationing" class="col-xs-2 col-form-label">
                                         <strong class="text-muted">Stationing</strong>
                                     </label>                                     
@@ -23,13 +23,13 @@
                                     @endforeach
                                     <input type="hidden" name="id_data_detail" value="{{$rowData->id_data}}"/>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto" id="topField2">
                                     <label for="segmen" class="col-xs-2 offset-md-1 col-form-label">
                                         <strong class="text-muted">Segmen</strong>
                                     </label>                                     
                                     <input id="segmen" min="1" name="segmen" placeholder="0" type="number" class="form-control form-control-sm" required="required">
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto" id="topField3">
                                     <label for="s" class="col-xs-2 offset-md-1 col-form-label">
                                         <strong class="text-muted">Confirm</strong>
                                     </label>                                        
@@ -55,8 +55,9 @@
                                                     <tbody>
                                                     </tbody>
                                                 </table>
-                                                <div class="col-md-5 mt-3 g-2">
-                                                    <button type="submit" name="save" id="save" class="btn btn-block btn-primary">
+                                                <div class="col-md-7 mt-3 g-2">
+                                                    <p id="infoRes" style="display:none;">Semua data berhasil disimpan. Klik untuk melihat hasil perhitungan.</p>
+                                                    <button type="submit" style="display: none;" name="save" id="save" class="btn btn-block btn-primary">
                                                         <span class="tf-icons bx bx-save"></span> SIMPAN
                                                     </button>
                                                     <di class="me-3"></di>
@@ -75,9 +76,7 @@
                                 <div class="me-auto fw-semibold">Informasi</div>
                                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                @foreach ($dataSta as $info)
-                                @endforeach
-                                <div class="toast-body">Data STA : <strong>{{substr_replace($info->nama_sta, '+', 1, 0)}}</strong> telah berhasil disimpan.</div>
+                                <div class="toast-body">Data STA : <strong id="staname"></strong> telah berhasil disimpan.</div>
                             </div>
                             <!-- Toast with Placements -->
                             <!--trigger toast with button-->
@@ -100,6 +99,7 @@
             e.preventDefault();
             var sta = $(this).children('option:selected').data('value');
             $('#id_sta').val(sta);
+            $("#staname").text(sta);                        
         });
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
@@ -113,6 +113,7 @@
         function emptyRow(){
             row_i++;
             $("#addedFields").append('<tr><td><input type="hidden" value="" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" value="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" value="0" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="tf-icons bx bx-trash-alt"></i></button></td></tr>');
+            $('#save').show();
         }
 
         function refresh(new_count) {
@@ -145,7 +146,6 @@
 
             e.preventDefault();
             var formdata = $(this).serialize();
-            console.log($(this).serializeArray());
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -176,10 +176,10 @@
                         $('#id_sta').val('');
                         $('#panjang').val('');
                         $('#lebar').val('');
-                        $('#jumlah_lubang').val('');
-                        $('#bekas_roda').val('');
-                        $('#lebar_retak').val('');                        
-                        $('#segmen').val('1');                        
+                        $('#jumlah_lubang').val('0');
+                        $('#bekas_roda').val('0');
+                        $('#lebar_retak').val('0');                        
+                        $('#segmen').val('1');
                         $('#showToastPlacement').click();
                     }
                     $('#save').attr('disabled', false);
@@ -190,6 +190,14 @@
                     if (checkLastRow < 2){
                         $('#checkRes').show();
                         $('#save').attr('disabled','disabled');
+                        $('#addRow').attr('disabled','disabled');
+                        $('#segmen').attr('disabled','disabled');
+                        $('#topField1').hide();
+                        $('#topField2').hide();
+                        $('#topField3').hide();
+                        $('#save').hide();
+                        $('#addedFields').hide();
+                        $('#infoRes').show();
                     }
                 }
             })

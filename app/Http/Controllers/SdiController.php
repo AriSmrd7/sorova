@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SdiController extends Controller
 {
@@ -19,6 +20,11 @@ class SdiController extends Controller
      *
      * @return void
      */
+    private $_Stationing;
+    private $_detailSta;
+    private $_dataSdi;
+    private $_tempForLuas;
+    
 
     public function __construct()
     {
@@ -37,8 +43,7 @@ class SdiController extends Controller
      */
     public function index()
     {
-        $prefix = date('ymd').'D-';
-        $id = IdGenerator::generate(['table' => 'tb_data', 'length' => 11, 'prefix' =>$prefix]);
+        $id = Str::orderedUuid();
 
         return view('data-sdi',compact('id'));
     }
@@ -169,6 +174,7 @@ class SdiController extends Controller
                     'bekas_roda' => $bekas_roda[$key],
                     'lebar_retak' => $lebar_retak[$key],
                 );
+
                 $insert_data[] = $data; 
             }
             DetailSta::insert($insert_data);
