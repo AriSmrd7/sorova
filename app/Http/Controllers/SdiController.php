@@ -196,7 +196,7 @@ class SdiController extends Controller
             
             $sdi_1 = Stationing::sdiCalc_1($persenLuasRetak);
             $sdi_2 = Stationing::sdiCalc_2($lebarRetak,$sdi_1);
-            $sdi_3 = Stationing::sdiCalc_3($jumlahLubang,$sdi_2);
+            $sdi_3 = Stationing::sdiCalc_3($jumlahLubang,$jumlahLubang);
             $sdi_4 = Stationing::sdiCalc_4($bekasRoda,$sdi_3);
             $sdi_final = $sdi_4;
             //save ke stationing table

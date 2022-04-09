@@ -102,15 +102,15 @@ class Stationing extends Model
         return $sdi_2;
     }
 
-    public static function sdiCalc_3($jumlahLubang,$sdi_2){
+    public static function sdiCalc_3($jumlahLubang,$valueLubang){
         if($jumlahLubang > 50){
-            $sdi_3 = $sdi_2 + 225;
+            $sdi_3 = $valueLubang + 225;
         }
         elseif($jumlahLubang >= 10 && $jumlahLubang <= 50){
-            $sdi_3 = $sdi_2 + 75;
+            $sdi_3 = $valueLubang + 75;
         }
         elseif($jumlahLubang > 0 && $jumlahLubang < 10){
-            $sdi_3 = $sdi_2 + 15;
+            $sdi_3 = $valueLubang + 15;
         }
         else{
             $sdi_3 = 0;
