@@ -34,6 +34,7 @@ class SdiController extends Controller
         $this->_detailSta = new DetailSta();
         $this->_dataSdi = new DataSdi();
         $this->_tempForLuas = new TempForLuas();
+
     }
 
     /**
@@ -174,11 +175,33 @@ class SdiController extends Controller
                     'bekas_roda' => $bekas_roda[$key],
                     'lebar_retak' => $lebar_retak[$key],
                 );
-
+                
+                $luasEach = ($data['panjang']/100) * ($data['lebar']/100);
+                $dt = array(
+                        'luas_row' => $luasEach
+                );
+                $temp[] = $dt;
+            
                 $insert_data[] = $data; 
             }
+            TempForLuas::insert($temp);
             DetailSta::insert($insert_data);
 
+            //luas total
+            $luasTotalCalc = DetailSta::sumLuas();
+            $persenLuasRetak = DetailSta::persentaseLuasRetak($luasTotalCalc);
+            $jumlahLubang = DetailSta::jumlahLubang($id_data_detail,$id_sta);
+            $lebarRetak = DetailSta::lebarRetak($id_data_detail,$id_sta);
+            $bekasRoda = DetailSta::bekasRoda($id_data_detail,$id_sta);
+            
+            $sdi_1 = Stationing::sdiCalc_1($persenLuasRetak);
+            $sdi_2 = Stationing::sdiCalc_2($lebarRetak,$sdi_1);
+            $sdi_3 = Stationing::sdiCalc_3($jumlahLubang,$sdi_2);
+            $sdi_4 = Stationing::sdiCalc_4($bekasRoda,$sdi_3);
+            $sdi_final = $sdi_4;
+            //save ke stationing table
+            Stationing::updateStationing($luasTotalCalc,$persenLuasRetak,$jumlahLubang,$sdi_1,$sdi_2,$sdi_3,$sdi_4,$sdi_final,$id_data_detail,$id_sta);
+            TempForLuas::truncate();
             return response()->json([
                                 'success'  => 'Data Added successfully.'
                             ]);

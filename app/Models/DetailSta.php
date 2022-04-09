@@ -23,20 +23,21 @@ class DetailSta extends Model
         'lebar_retak'
     ];
 
-    public static function bagiPanjang($panjang){
-        $hasil = (int) $panjang / 100;
-        return $hasil;
+    public static function lebarRetak($id_data,$id_sta){
+        $data = DetailSta::select('lebar_retak')
+                 ->where('id_data',$id_data)
+                 ->where('id_sta',$id_sta)
+                 ->first();
+        return $data->lebar_retak;
     }
     
-    public static function bagiLebar($lebar){
-        $hasil = (int) $lebar / 100;
-        return $hasil;
-    }
-
-    public static function calcLuas($panjang,$lebar){
-        $hasil = $panjang * $lebar;
-        return $hasil;
-    }
+    public static function bekasRoda($id_data,$id_sta){
+        $data = DetailSta::select('bekas_roda')
+                 ->where('id_data',$id_data)
+                 ->where('id_sta',$id_sta)
+                 ->first();
+        return $data->bekas_roda;
+     }
 
     public static function sumLuas(){
         $luas = TempForLuas::sum('luas_row');
@@ -51,7 +52,7 @@ class DetailSta extends Model
     public static function jumlahLubang($id_data,$id_sta){
         $luas = DetailSta::where('id_sta',$id_sta)
                         ->where('id_data',$id_data)
-                        ->sum('luas_row');
-        return $luas;
+                        ->sum('jumlah_lubang');
+        return $luas * 10;
     }
 }
