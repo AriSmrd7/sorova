@@ -118,5 +118,7 @@
     <script src="{{ asset('new-assets') }}/vendor/js/menu.js"></script>
     <script src="{{ asset('new-assets') }}/js/main.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="{{ asset('new-assets') }}/js/ui-toasts.js"></script>
+
   </body>
 </html>

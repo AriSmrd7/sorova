@@ -68,6 +68,23 @@
                                 <!--end body content-->
                                 </form>
                             </div>
+                            <!-- Toast with Placements -->
+                            <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true"data-delay="2000">
+                                <div class="toast-header">
+                                <i class="bx bx-bell me-2"></i>
+                                <div class="me-auto fw-semibold">Informasi</div>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                @foreach ($dataSta as $info)
+                                @endforeach
+                                <div class="toast-body">Data STA : <strong>{{substr_replace($info->nama_sta, '+', 1, 0)}}</strong> telah berhasil disimpan.</div>
+                            </div>
+                            <!-- Toast with Placements -->
+                            <!--trigger toast with button-->
+                                <button id="showToastPlacement" type="button" style="display: none;">+</button>
+                                <input type="hidden" id="selectTypeOpt" value="bg-success"/>
+                                <input type="hidden" id="selectPlacement" value="top-0 start-50 translate-middle-x"/>
+                            <!-- end trigger -->
 
                         </div>
                         <!--/ Card -->
@@ -79,7 +96,6 @@
 <script>
   var $ = jQuery.noConflict();
   $(document).ready(function() {
-    
         $('#stationing').on('change',function(e){
             e.preventDefault();
             var sta = $(this).children('option:selected').data('value');
@@ -164,7 +180,7 @@
                         $('#bekas_roda').val('');
                         $('#lebar_retak').val('');                        
                         $('#segmen').val('1');                        
-                        successAdd()
+                        $('#showToastPlacement').click();
                     }
                     $('#save').attr('disabled', false);
                     var selVal = $('#stationing option:selected').val();
@@ -179,15 +195,6 @@
             })
         });
 
-        function successAdd(){
-          Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Data Stationing berhasil disimpan',
-              showConfirmButton: true,
-              confirmButtonColor: '#3085d6'
-            })  
-        }
 
         function warningAdd(){
           Swal.fire({
