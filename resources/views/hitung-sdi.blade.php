@@ -55,10 +55,14 @@
                                                     <tbody>
                                                     </tbody>
                                                 </table>
-                                                <div class="col-md-4 mt-3">
+                                                <div class="col-md-5 mt-3 g-2">
                                                     <button type="submit" name="save" id="save" class="btn btn-block btn-primary">
-                                                        <span class="tf-icons bx bx-save"></span> SIMPAN STATIONING
+                                                        <span class="tf-icons bx bx-save"></span> SIMPAN
                                                     </button>
+                                                    <di class="me-3"></di>
+                                                    <a href="{{route('riwayat')}}" id="checkRes" class="btn btn-block btn-success" style="display:none;">
+                                                        <span class="tf-icons bx bx-list-check"></span> RESULT
+                                                    </a>
                                                 </div>
                                        </div>
                                 <!--end body content-->
@@ -75,7 +79,7 @@
 <script>
   var $ = jQuery.noConflict();
   $(document).ready(function() {
-
+    
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
                 disable_search_threshold: 10,
@@ -159,6 +163,11 @@
                     var selVal = $('#stationing option:selected').val();
                     $('select').children('option[value="' + selVal + '"]').remove();
                     $('#stationing option').trigger('chosen:updated');
+                    var checkLastRow = $('#stationing option').length;
+                    if (checkLastRow < 2){
+                        $('#checkRes').show();
+                        $('#save').attr('disabled','disabled');
+                    }
                 }
             })
         });

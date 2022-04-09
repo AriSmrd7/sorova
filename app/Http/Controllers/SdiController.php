@@ -105,20 +105,27 @@ class SdiController extends Controller
 
     public function hitungSdi($id){
 
-        $sta = DataSdi::where('id',$id)->first();
+        $check = Stationing::checkLastRows($id);
+        if ($check < 1){
+           return redirect()->route('riwayat');
+        }
+        else{
+                
+            $sta = DataSdi::where('id',$id)->first();
 
-        $dataSta = DB::table('tb_stationing')
-                    ->select('*')
-                    ->whereNotExists(function ($query) {
-                        $query->from('tb_detail_stationing')
-                            ->select('*')
-                            ->where('tb_stationing.nama_sta','=',DB::raw('tb_detail_stationing.id_sta'))
-                            ->where('tb_stationing.id_data','=',DB::raw('tb_detail_stationing.id_data'));
-                    })
-                    ->where('tb_stationing.id_data','=',$id)
-                    ->get();
+            $dataSta = DB::table('tb_stationing')
+                        ->select('*')
+                        ->whereNotExists(function ($query) {
+                            $query->from('tb_detail_stationing')
+                                ->select('*')
+                                ->where('tb_stationing.nama_sta','=',DB::raw('tb_detail_stationing.id_sta'))
+                                ->where('tb_stationing.id_data','=',DB::raw('tb_detail_stationing.id_data'));
+                        })
+                        ->where('tb_stationing.id_data','=',$id)
+                        ->get();
 
-        return view('hitung-sdi',compact('sta','dataSta'));
+            return view('hitung-sdi',compact('sta','dataSta'));
+        }
     }
 
     public function saveStationing(Request $request)
