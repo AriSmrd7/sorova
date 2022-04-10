@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataSdi;
 use Illuminate\Http\Request;
 
 class RiwayatController extends Controller
@@ -23,6 +24,8 @@ class RiwayatController extends Controller
      */
     public function index()
     {
-        return view('riwayat');
+        $dataSta = DataSdi::paginate(25);
+
+        return view('riwayat',compact('dataSta'))->with('i', (request()->input('page', 1) - 1) * 25);;
     }
 }

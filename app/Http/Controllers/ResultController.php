@@ -29,7 +29,7 @@ class ResultController extends Controller
     {
         $dataPrimer = DataSdi::where('id',$id)->first();
 
-        $dataSta = Stationing::where('id_data',$id)->paginate(25);;
+        $dataSta = Stationing::where('id_data',$id)->paginate(25);
         $maxBR = DetailSta::where('id_data',$id)->max('bekas_roda');
         $maxLR = DetailSta::where('id_data',$id)->max('lebar_retak');
 

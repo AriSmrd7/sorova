@@ -205,15 +205,23 @@
                         </div>
 
                         <div class="tab-pane fade" id="navs-pills-top-chart" role="tabpanel">
-                          <p>
-                            Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
-                            cupcake gummi bears cake chocolate.
-                          </p>
-                          <p class="mb-0">
-                            Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie brownie cake. Sweet
-                            roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
-                            jelly-o tart brownie jelly.
-                          </p>
+                          <div class="col-sm-12">
+                            <small class="text-light fw-semibold">Pie Chart</small>
+                              <div class="demo-inline-spacing mt-2">
+                                <div class="col-12 text-danger">
+                                  Under Maintenance
+                                </div>
+                              </div>
+                          </div>
+                          <div class="mt-4 mb-4"></div>
+                          <div class="col-sm-12">
+                            <small class="text-light fw-semibold">Diagram Batang</small>
+                              <div class="demo-inline-spacing mt-2">
+                                <div class="col-12 text-danger">
+                                  Under Maintenance
+                                </div>
+                              </div>
+                          </div>
                         </div>
 
 
