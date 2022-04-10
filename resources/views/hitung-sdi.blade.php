@@ -61,7 +61,7 @@
                                                         <span class="tf-icons bx bx-save"></span> SIMPAN
                                                     </button>
                                                     <di class="me-3"></di>
-                                                    <a href="{{route('riwayat')}}" id="checkRes" class="btn btn-block btn-success" style="display:none;">
+                                                    <a href="{{route('data-primer.sdi.result',$idData)}}" id="checkRes" class="btn btn-block btn-success" style="display:none;">
                                                         <span class="tf-icons bx bx-list-check"></span> RESULT
                                                     </a>
                                                 </div>
@@ -152,7 +152,7 @@
                 }
             });
             $.ajax({
-                url:'{{ route("data-sdi.hitung.save") }}',
+                url:'{{ route("data-primer.sdi.save") }}',
                 method:'post',
                 data:formdata,
                 dataType:'json',

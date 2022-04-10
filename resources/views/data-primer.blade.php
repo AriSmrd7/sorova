@@ -19,7 +19,7 @@
                                     </div>
                                 @endif
                                 
-                                <form id="dataRiset" method="POST" action="{{route('data-sdi.insert')}}" enctype="multipart/form-data">
+                                <form id="dataRiset" method="POST" action="{{route('data-primer.insert')}}" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id_data" value="{{$id}}">
                                     <div class="row col-lg-12">

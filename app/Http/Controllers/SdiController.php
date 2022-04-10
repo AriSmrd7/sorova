@@ -46,7 +46,7 @@ class SdiController extends Controller
     {
         $id = Str::orderedUuid();
 
-        return view('data-sdi',compact('id'));
+        return view('data-primer',compact('id'));
     }
 
     public function saveData(Request $request){
@@ -105,7 +105,7 @@ class SdiController extends Controller
         Stationing::insert($datas);
 
 
-        return redirect()->route('data-sdi.hitung',$id_data);
+        return redirect()->route('data-primer.sdi.index',$id_data);
 
     }
 
@@ -113,12 +113,12 @@ class SdiController extends Controller
 
         $check = Stationing::checkLastRows($id);
         if ($check < 1){
-           return redirect()->route('riwayat');
+           return redirect()->route('data-primer.sdi.result',$id);
         }
         else{
                 
             $sta = DataSdi::where('id',$id)->first();
-
+            $idData = $id;
             $dataSta = DB::table('tb_stationing')
                         ->select('*')
                         ->whereNotExists(function ($query) {
@@ -130,7 +130,7 @@ class SdiController extends Controller
                         ->where('tb_stationing.id_data','=',$id)
                         ->get();
 
-            return view('hitung-sdi',compact('sta','dataSta'));
+            return view('hitung-sdi',compact('sta','dataSta','idData'));
         }
     }
 

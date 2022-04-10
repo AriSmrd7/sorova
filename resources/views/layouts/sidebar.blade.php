@@ -1,5 +1,5 @@
-            <li class="menu-item {{ request()->is('data-sdi*') ? 'active' : '' }}">
-              <a href="{{URL('data-sdi')}}" class="menu-link">
+            <li class="menu-item {{ request()->is('data-primer*') ? 'active' : '' }}">
+              <a href="{{URL('data-primer')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div data-i18n="Analytics">Data Primer</div>
               </a>
