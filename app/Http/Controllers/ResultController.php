@@ -24,9 +24,10 @@ class ResultController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($id)
+    public function index()
     {
-        $data = $id;
-        return view('result',compact('data'));
+        //$data = $id;
+        //return view('result',compact('data'));
+        return view('result');
     }
 }
