@@ -1,10 +1,10 @@
 @extends('layouts.master')
 @section('title', 'Sorova - Data Primer')
+@section('pageTitle', 'Form Data Primer')
 @section('content')
             <div class="container-xxl flex-grow-1 container-p-y">
                         <!-- Card -->
                         <div class="card">
-                            <h5 class="card-header">Form Data Primer</h5>
                             <div class="card-body">
 
                                 @if ($errors->any())

@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title', 'Sorova - Hitung Data SDI')
+@section('pageTitle', 'Form Data SDI')
 @section('content')
                 <div class="container-xxl flex-grow-1 container-p-y">
                         <!-- Card -->
                         <div class="card">
-                            <h5 class="card-header">Form Data SDI</h5>
-
+                            <!-- <h5 class="card-header">Form Data SDI</h5> -->
                             <div class="card-body">
                                 <form method="POST" id="formSta" class="row g-3">
                                 @csrf

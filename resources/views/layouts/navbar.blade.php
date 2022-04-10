@@ -7,6 +7,16 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
+            <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <i class="bx bx-merge lh-0 fs-4 me-2"></i> 
+                  <h5 class="text-secondary mt-3">                    
+                     @yield('pageTitle')
+                    </h5>
+                </div>
+              </div>
+
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
