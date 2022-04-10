@@ -24,10 +24,14 @@ class ResultController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($id)
     {
-        //$data = $id;
-        //return view('result',compact('data'));
-        return view('result');
+        $dataPrimer = DataSdi::where('id',$id)->first();
+
+        $dataSta = Stationing::where('id_data',$id)->paginate(20);;
+        $maxBR = DetailSta::where('id_data',$id)->max('bekas_roda');
+        $maxLR = DetailSta::where('id_data',$id)->max('lebar_retak');
+        return view('result',compact('dataPrimer','dataSta','maxBR','maxLR'))
+        ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 }

@@ -34,7 +34,7 @@
                           <small class="text-light fw-semibold">Foto Map </small>
                             <div class="demo-inline-spacing mt-2">
                               <div class="col-12">
-                                 <img src="{{asset('/fotomaps/1649570909.png')}}" width="100%" />
+                                 <img src="{{asset('/fotomaps/'.$dataPrimer->foto_map)}}" width="100%" />
                               </div>
                             </div>
                           </div>
@@ -44,34 +44,39 @@
                             <div class="demo-inline-spacing mt-2">
                               <ul class="list-group">
                                 <li class="list-group-item d-flex align-items-center">
-                                  <i class="bx bx-tv me-2"></i>
+                                  <i class="bx bx-map-pin me-2"></i>
                                   <div class="col-3">Ruas Jalan</div>
-                                  <div>Jl.MMM</div> 
+                                  <div class="text-primary">{{$dataPrimer->ruas_jalan}}</div> 
                                 </li>
                                 <li class="list-group-item d-flex align-items-center">
-                                  <i class="bx bx-bell me-2"></i>
+                                  <i class="bx bx-station me-2"></i>
                                   <div class="col-3">Stationing</div>
-                                  <div>5+000 - 7+000</div>                               
+                                  <div class="text-primary">{{$dataPrimer->sta_awal}} <i class="bx bx-chevron-right"></i> {{$dataPrimer->sta_akhir}}</div>                               
                                 </li>
                                 <li class="list-group-item d-flex align-items-center">
-                                  <i class="bx bx-support me-2"></i>
+                                  <i class="bx bx-tachometer me-2"></i>
                                   <div class="col-3">Lebar Jalan</div>
-                                  <div>7.5 Meter</div> 
+                                  <div class="text-primary">{{$dataPrimer->lebar}} Meter</div> 
                                 </li>
                                 <li class="list-group-item d-flex align-items-center">
-                                  <i class="bx bx-purchase-tag-alt me-2"></i>
+                                  <i class="bx bx-trip me-2"></i>
                                   <div class="col-3">Jumlah Lajur</div>
-                                  <div>Jl.MMM</div>                               
+                                  <div class="text-primary">{{$dataPrimer->jumlah_lajur}} Lajur</div>                               
                                 </li>
                                 <li class="list-group-item d-flex align-items-center">
-                                  <i class="bx bx-closet me-2"></i>
+                                  <i class="bx bx-sort-alt-2 me-2"></i>
+                                  <div class="col-3">Jumlah Jalur</div>
+                                  <div class="text-primary">{{$dataPrimer->jumlah_jalur}} Jalur</div>                               
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                  <i class="bx bx-directions me-2"></i>
                                   <div class="col-3">Jumlah Arah</div>
-                                  <div>Jl.MMM</div>                               
+                                  <div class="text-primary">{{$dataPrimer->jumlah_arah}} Arah</div>                               
                                 </li>
                                 <li class="list-group-item d-flex align-items-center">
-                                  <i class="bx bx-closet me-2"></i>
+                                  <i class="bx bx-hive me-2"></i>
                                   <div class="col-3">Tipe Perkerasan</div>
-                                  <div>Jl.MMM</div>                               
+                                  <div class="text-primary">{{$dataPrimer->tipe_perkerasan}}</div>                               
                                 </li>
                               </ul>
                             </div>
@@ -82,15 +87,66 @@
 
 
                         <div class="tab-pane fade" id="navs-pills-top-sdi" role="tabpanel">
-                          <p>
-                            Donut dragée jelly pie halvah. Danish gingerbread bonbon cookie wafer candy oat cake ice
-                            cream. Gummies halvah tootsie roll muffin biscuit icing dessert gingerbread. Pastry ice cream
-                            cheesecake fruitcake.
-                          </p>
-                          <p class="mb-0">
-                            Jelly-o jelly beans icing pastry cake cake lemon drops. Muffin muffin pie tiramisu halvah
-                            cotton candy liquorice caramels.
-                          </p>
+                          <div class="col-sm-12">
+                            <small class="text-light fw-semibold">Table Hasil Perhitungan SDI </small>
+                              <div class="demo-inline-spacing mt-2">
+                                <div class="col-12">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                      <thead class="text-center">
+                                        <tr>
+                                          <th rowspan="2" class="align-middle" width="1%">No.</th>
+                                          <th rowspan="2" class="align-middle" width="17%">STA</th>
+                                          <th colspan="4">Nilai SDI</th>
+                                        </tr>
+                                        <tr>
+                                          <th>Luas Retak (%)</th>
+                                          <th>Lebar Retak (mm)</th>
+                                          <th>Jumlah Lubang</th>
+                                          <th>Dalam Bekas Roda (cm)</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="text-center">
+                                      @php
+                                        $rowid = 0;
+                                        $rowspan = 0;
+                                      @endphp
+                                      @foreach($dataSta as $key => $rowSta)
+                                      @php
+                                        $rowid += 1
+                                      @endphp
+                                        <tr>
+                                          <td>{{ ++$i }}</td>
+                                          <td>{{substr_replace($rowSta->nama_sta, '+', 1, 0)}} ‒ @if(!$loop->last) {{substr_replace($dataSta[$key+1]->nama_sta, '+', 1, 0)}} @else {{substr_replace($dataSta[$key]->nama_sta+100, '+', 1, 0)}} @endif</td>
+                                          <td>{{$rowSta->persen_luas_retak}}</td>
+                                          @if ($key == 0 || $rowspan == $rowid)
+                                              @php
+                                                  $rowid = 0;
+                                                  $rowspan = $maxLR;
+                                              @endphp
+                                              <td rowspan="{{ $rowspan }}">{{$maxLR}}</td>
+                                          @endif
+                                          <td>{{$rowSta->jumlah_lubang}}</td>
+                                          @if ($key == 0 || $rowspan == $rowid)
+                                              @php
+                                                  $rowid = 0;
+                                                  $rowspan = $maxBR;
+                                              @endphp
+                                              <td rowspan="{{ $rowspan }}">{{$maxBR}}</td>
+                                          @endif                                        
+                                        </tr>
+                                      @endforeach
+                                      </tbody>
+                                    </table>
+                                      <div class="col-md-12">
+                                        <div class="row text-center">
+                                          {{$dataSta->links("pagination::bootstrap-5")}}
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
                         </div>
 
 
