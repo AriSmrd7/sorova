@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DataSdi;
 use App\Models\DetailSta;
+use App\Models\ResultSdi;
 use App\Models\Stationing;
 use App\Models\TempForLuas;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +25,7 @@ class SdiController extends Controller
     private $_detailSta;
     private $_dataSdi;
     private $_tempForLuas;
+    private $_resultSdi;
     
 
     public function __construct()
@@ -34,6 +36,7 @@ class SdiController extends Controller
         $this->_detailSta = new DetailSta();
         $this->_dataSdi = new DataSdi();
         $this->_tempForLuas = new TempForLuas();
+        $this->_resultSdi = new ResultSdi();
 
     }
 
@@ -156,7 +159,7 @@ class SdiController extends Controller
                 ]);
             }
 
-            $id_sta = $request->stationing;
+            $id_sta = $request->staname;
             $id_data_detail = $request->id_data_detail;
             $panjang = $request->panjang;
             $lebar = $request->lebar;
@@ -201,6 +204,15 @@ class SdiController extends Controller
             $sdi_final = $sdi_4;
             //save ke stationing table
             Stationing::updateStationing($luasTotalCalc,$persenLuasRetak,$jumlahLubang,$sdi_1,$sdi_2,$sdi_3,$sdi_4,$sdi_final,$id_data_detail,$id_sta);
+            
+            $checkKondisi = ResultSdi::checkKondisi($sdi_final);
+
+            $this->_resultSdi->id_data = $id_data_detail;
+            $this->_resultSdi->id_sta = $id_sta;
+            $this->_resultSdi->nilai_sdi = $sdi_final;
+            $this->_resultSdi->kondisi_jalan = $checkKondisi;
+            $this->_resultSdi->save();
+            
             TempForLuas::truncate();
             return response()->json([
                                 'success'  => 'Data Added successfully.'

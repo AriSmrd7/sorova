@@ -36,3 +36,5 @@ Route::get('logout', function (){
     Session()->flush();
     return Redirect::to('/login');
 })->name('logout');
+
+Route::get('/truncate', [App\Http\Controllers\TruncateTable::class, 'index'])->name('truncate.table')->middleware('auth');

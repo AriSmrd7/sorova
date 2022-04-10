@@ -32,7 +32,8 @@
                                 <div class="col-auto" id="topField3">
                                     <label for="s" class="col-xs-2 offset-md-1 col-form-label">
                                         <strong class="text-muted">Confirm</strong>
-                                    </label>                                        
+                                    </label>     
+                                    <input type="hidden" id="staname" name="staname"/>                                   
                                     <button id="addRow" type="button" class="btn btn-sm btn-primary">
                                     <span class="tf-icons bx bx-plus-circle"></span> ADD
                                     </button>                                
@@ -52,7 +53,7 @@
                                                     <td class="text-muted">#</td>
                                                     </tr>
                                                 </thead>
-                                                    <tbody>
+                                                    <tbody id="tBody">
                                                     </tbody>
                                                 </table>
                                                 <div class="col-md-7 mt-3 g-2">
@@ -98,7 +99,7 @@
         $('#stationing').on('change',function(e){
             e.preventDefault();
             var sta = $(this).children('option:selected').data('value');
-            $('#id_sta').val(sta);
+            $('#staname').val(sta);
             $("#staname").text(sta);                        
         });
         jQuery(document).ready(function() {
@@ -112,7 +113,7 @@
         var row_i = 0;
         function emptyRow(){
             row_i++;
-            $("#addedFields").append('<tr><td><input type="hidden" value="" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" value="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" value="0" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="tf-icons bx bx-trash-alt"></i></button></td></tr>');
+            $("#addedFields").append('<tr><td><input type="hidden" id="id_sta" name="id_sta[' + row_i + ']"/><input class="form-control form-control-sm" id="panjang" placeholder="Panjang (m)" name="panjang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar" placeholder="Lebar (m)" name="lebar[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td> <td><input class="form-control form-control-sm" id="jumlah_lubang" value="0" name="jumlah_lubang[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="bekas_roda" value="0" name="bekas_roda[' + row_i + ']" required onkeypress="return isNumberKey(event,this)"/></td><td><input class="form-control form-control-sm" id="lebar_retak" placeholder="0 mm" name="lebar_retak[' + row_i + ']" value="0" required onkeypress="return isNumberKey(event,this)"/></td><td><button class="btn btn-sm btn-danger remove-field" href=""><i class="tf-icons bx bx-trash-alt"></i></button></td></tr>');
             $('#save').show();
         }
 
@@ -179,8 +180,10 @@
                         $('#jumlah_lubang').val('0');
                         $('#bekas_roda').val('0');
                         $('#lebar_retak').val('0');                        
-                        $('#segmen').val('1');
+                        $('#segmen').val('0');
                         $('#showToastPlacement').click();
+                        $('#tBody').empty();
+                        $('#save').hide();
                     }
                     $('#save').attr('disabled', false);
                     var selVal = $('#stationing option:selected').val();

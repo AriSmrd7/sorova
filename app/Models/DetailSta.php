@@ -24,19 +24,17 @@ class DetailSta extends Model
     ];
 
     public static function lebarRetak($id_data,$id_sta){
-        $data = DetailSta::select('lebar_retak')
-                 ->where('id_data',$id_data)
+        $data = DetailSta::where('id_data',$id_data)
                  ->where('id_sta',$id_sta)
-                 ->first();
-        return $data->lebar_retak;
+                 ->max('lebar_retak');
+        return $data;
     }
     
     public static function bekasRoda($id_data,$id_sta){
-        $data = DetailSta::select('bekas_roda')
-                 ->where('id_data',$id_data)
+        $data = DetailSta::where('id_data',$id_data)
                  ->where('id_sta',$id_sta)
-                 ->first();
-        return $data->bekas_roda;
+                 ->max('bekas_roda');
+        return $data;
      }
 
     public static function sumLuas(){
