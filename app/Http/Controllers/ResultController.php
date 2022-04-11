@@ -30,8 +30,8 @@ class ResultController extends Controller
         $dataPrimer = DataSdi::where('id',$id)->first();
 
         $dataSta = Stationing::where('id_data',$id)->paginate(25);
-        $maxBR = DetailSta::where('id_data',$id)->max('bekas_roda');
-        $maxLR = DetailSta::where('id_data',$id)->max('lebar_retak');
+        $maxBR = DetailSta::where('id_data',$id)->groupBy('id_sta')->max('bekas_roda');
+        $maxLR = DetailSta::where('id_data',$id)->groupBy('id_sta')->max('lebar_retak');
 
         $resultData = DB::table('tb_stationing')
                             ->leftJoin('tb_result', function($join)
@@ -43,7 +43,13 @@ class ResultController extends Controller
                             ->having('tb_stationing.id_data','=',$id)
                           ->get();
 
-        return view('result',compact('dataPrimer','dataSta','maxBR','maxLR','resultData'))
+        $dataPie = DB::table('tb_result')
+                        ->select('kondisi_jalan',DB::raw("ROUND((COUNT(kondisi_jalan)/(SELECT COUNT(*) FROM tb_result WHERE id_data='$id'))*100,0) AS persentase"))
+                        ->where('id_data','=',$id)
+                        ->groupBy('kondisi_jalan')
+                        ->get();
+
+        return view('result',compact('dataPrimer','dataSta','maxBR','maxLR','resultData','dataPie'))
         ->with('i', (request()->input('page', 1) - 1) * 25);
     }
 }

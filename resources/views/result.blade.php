@@ -209,8 +209,34 @@
                             <small class="text-light fw-semibold">Pie Chart</small>
                               <div class="demo-inline-spacing mt-2">
                                 <div class="col-12 text-danger">
-                                  Under Maintenance
+                                  <div id="piechart" style="width: 1200px; height: 800px;"></div>
                                 </div>
+                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <script type="text/javascript">
+                                    google.charts.load('current', {'packages':['corechart']});
+                                    google.charts.setOnLoadCallback(drawChart);
+                            
+                                    function drawChart() {
+                            
+                                    var data = google.visualization.arrayToDataTable([
+                                        ['Month Name', 'Registered User Count'],
+                            
+                                            @php
+                                            foreach($dataPie as $d) {
+                                                echo "['".$d->kondisi_jalan."', ".$d->persentase."],";
+                                            }
+                                            @endphp
+                                    ]);
+                            
+                                      var options = {
+                                        is3D: true,
+                                      };
+                            
+                                      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                            
+                                      chart.draw(data, options);
+                                    }
+                                </script>
                               </div>
                           </div>
                           <div class="mt-4 mb-4"></div>
