@@ -128,27 +128,22 @@
                                           @if ($key == 0 || $rowspan == $rowid)
                                               @php
                                                   $rowid = 0;
-                                                  $rowspan = $maxLR;
+                                                  $rowspan = count($dataSta);
                                               @endphp
-                                              <td rowspan="{{ $rowspan }}">{{$maxLR}}</td>
+                                              <td rowspan="{{ $rowspan }}">{{$rowSta->lebar}}</td>
                                           @endif
-                                          <td>{{$rowSta->jumlah_lubang}}</td>
+                                          <td>{{$rowSta->jumlah_lubang}}</td>                                      
                                           @if ($key == 0 || $rowspan == $rowid)
                                               @php
                                                   $rowid = 0;
-                                                  $rowspan = $maxBR;
+                                                  $rowspan = count($dataSta);
                                               @endphp
-                                              <td rowspan="{{ $rowspan }}">{{$maxBR}}</td>
-                                          @endif                                        
+                                              <td rowspan="{{ $rowspan }}">{{$rowSta->bekas}}</td>
+                                          @endif  
                                         </tr>
                                       @endforeach
                                       </tbody>
                                     </table>
-                                      <div class="col-md-12">
-                                        <div class="row text-center">
-                                          {{$dataSta->links("pagination::bootstrap-5")}}
-                                        </div>
-                                      </div>
                                   </div>
                                 </div>
                               </div>
@@ -197,6 +192,12 @@
                                           </tr>
                                         @endforeach
                                       </tbody>
+                                      <tfoot>
+                                        <tr>
+                                          <td colspan="2">Rata-rata SDI</td>
+                                          <td colspan="5">{{$avgSta->rata_rata}}</td>
+                                        </tr>
+                                      </tfoot>
                                     </table>
                                   </div>
                                 </div>

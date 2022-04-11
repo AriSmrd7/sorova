@@ -29,10 +29,18 @@ class ResultController extends Controller
     {
         $dataPrimer = DataSdi::where('id',$id)->first();
 
-        $dataSta = Stationing::where('id_data',$id)->paginate(25);
-        $maxBR = DetailSta::where('id_data',$id)->groupBy('id_sta')->max('bekas_roda');
-        $maxLR = DetailSta::where('id_data',$id)->groupBy('id_sta')->max('lebar_retak');
+        $dataSta = DB::table('tb_stationing')
+                        ->select('tb_stationing.*',DB::raw('MAX(tb_detail_stationing.lebar_retak) as lebar'),DB::raw(' MAX(tb_detail_stationing.bekas_roda) as bekas '))
+                        ->leftJoin('tb_detail_stationing','tb_stationing.id_data', '=', 'tb_detail_stationing.id_data')
+                        ->groupBy('tb_stationing.nama_sta')
+                        ->where('tb_stationing.id_data','=',$id)
+                        ->get();
 
+        $avgSta = DB::table('tb_stationing')
+                        ->selectRaw('AVG(sdi_final) as rata_rata')
+                        ->where('id_data','=',$id)
+                        ->first();
+                        
         $resultData = DB::table('tb_stationing')
                             ->leftJoin('tb_result', function($join)
                                 {
@@ -49,7 +57,7 @@ class ResultController extends Controller
                         ->groupBy('kondisi_jalan')
                         ->get();
 
-        return view('result',compact('dataPrimer','dataSta','maxBR','maxLR','resultData','dataPie'))
-        ->with('i', (request()->input('page', 1) - 1) * 25);
+        return view('result',compact('dataPrimer','dataSta','resultData','dataPie','avgSta'))
+        ->with('i');
     }
 }
