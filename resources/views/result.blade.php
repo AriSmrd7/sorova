@@ -287,10 +287,18 @@
                                             }
                                             @endphp
                                     ]);
-                                                                        
+                                    var view = new google.visualization.DataView(data);
+                                    view.setColumns([0, 1, {
+                                      calc: 'stringify',
+                                      role: 'annotation',
+                                      sourceColumn: 1,
+                                      type: 'string'
+                                    }]);
+                                                                                                                                              
                                     var options = {
                                         width: 800,
                                         height: 400,
+                                        colors: ['#ff4d4d'],
                                         hAxis: { 
                                           direction:1, 
                                           slantedText:true, 
@@ -299,7 +307,7 @@
                                         },                                                                              
                                       };
                                       var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
-                                      chart.draw(data, options);
+                                      chart.draw(view, options);
                                       
                                       $(window).resize(function(){
                                       var view = new google.visualization.DataView(data);
