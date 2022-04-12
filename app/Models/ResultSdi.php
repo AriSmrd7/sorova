@@ -89,6 +89,7 @@ class ResultSdi extends Model
         $dataBar = DB::table('tb_result')
                 ->select('id_sta','nilai_sdi')
                 ->where('id_data','=',$id)
+                ->orderBy('id_sta','ASC')
                 ->get();
 
         return $dataBar;

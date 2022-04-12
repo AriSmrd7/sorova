@@ -292,7 +292,7 @@
                                         width: 800,
                                         height: 400,
                                         hAxis: { 
-                                          direction:-1, 
+                                          direction:1, 
                                           slantedText:true, 
                                           fontsize:5, 
                                           slantedTextAngle:45,

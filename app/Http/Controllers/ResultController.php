@@ -35,8 +35,7 @@ class ResultController extends Controller
         $dataPie = ResultSdi::pieChartData($id);                        
 
         $dataBar = ResultSdi::barChartData($id);
-        
-
+    
         return view('result',compact('dataPrimer','dataSta','resultData','dataPie','avgSta','dataBar'))
                     ->with('i');
     }
