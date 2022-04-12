@@ -28,6 +28,6 @@ class RiwayatController extends Controller
         $idUser = Auth::user()->id;
         $dataSta = DataSdi::where('id_user',$idUser)->paginate(25);
 
-        return view('riwayat',compact('dataSta'))->with('i', (request()->input('page', 1) - 1) * 25);;
+        return view('riwayat',compact('dataSta'))->with('i', (request()->input('page', 1) - 1) * 25);
     }
 }

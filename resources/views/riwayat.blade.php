@@ -27,7 +27,7 @@
                             <td>{{$rowSta->sta_akhir}}</td>
                             <td>{{$rowSta->lebar}} Meter</td>
                             <td>
-                            <a href="{{route('data-primer.sdi.result',$rowSta->id)}}" class="btn btn-sm btn-info">
+                            <a href="{{route('data-primer.sdi.index',$rowSta->id)}}" class="btn btn-sm btn-info">
                             Detail <span class="tf-icons bx bx-send"></span> 
                             </a>
                             </td>
