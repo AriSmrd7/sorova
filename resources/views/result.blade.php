@@ -223,99 +223,124 @@
                         </div>
 
                         <div class="tab-pane fade" id="navs-pills-top-chart" role="tabpanel">
-                          <div class="col-lg-12">
-                            <small class="text-light fw-semibold">Pie Chart</small>
-                              <div class="demo-inline-spacing mt-2">
-                                <div class="col-12 text-center">
-                                  <div id="piechart"></div>
-                                </div>
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                                <script type="text/javascript">
-                                    google.charts.load('current', {'packages':['corechart']});
-                                    google.charts.setOnLoadCallback(drawChart);
-                            
-                                    function drawChart() {
-                            
-                                    var data = google.visualization.arrayToDataTable([
-                                        ['Kondisi Jalan', 'Persentase'],
-                            
-                                            @php
-                                            foreach($dataPie as $d) {
-                                                echo "['".$d->kondisi_jalan."', ".$d->persentase."],";
-                                            }
-                                            @endphp
-                                    ]);
-                            
-                                      var options = {
-                                        is3D: true,
-                                        colors: ['#eb2f06', '#f6b93b', '#60a3bc', '#78e08f'],
-                                        chartArea: {width: 800, height: 600},
-                                      };
-                            
-                                      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                            
-                                      chart.draw(data, options);
-                                      
-                                      
-                                    }
-                                </script>
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="col-lg-12">
+                                <small class="text-light fw-semibold">Pie Chart</small>
+                                  <div class="demo-inline-spacing mt-2">
+                                    <div class="col-12 text-center">
+                                      <div id="piechart"></div>
+                                    </div>
+                                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                    <script type="text/javascript">
+                                        google.charts.load('current', {'packages':['corechart']});
+                                        google.charts.setOnLoadCallback(drawChart);
+                                
+                                        function drawChart() {
+                                
+                                        var data = google.visualization.arrayToDataTable([
+                                            ['Kondisi Jalan', 'Persentase'],
+                                
+                                                @php
+                                                foreach($dataPie as $d) {
+                                                    echo "['".$d->kondisi_jalan."', ".$d->persentase."],";
+                                                }
+                                                @endphp
+                                        ]);
+                                
+                                          var options = {
+                                            is3D: true,
+                                            colors: ['#eb2f06', '#f6b93b', '#60a3bc', '#78e08f'],
+                                            chartArea: {top:25,width: 800, height: 600},
+                                            legend:{position:'top'}
+                                          };
+                                
+                                          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                                
+                                          chart.draw(data, options);
+                                          
+                                          
+                                        }
+                                    </script>
+                                  </div>
                               </div>
+                            </div>
                           </div>
+                          
                           <div class="mt-4 mb-4"></div>
-                          <div class="col-lg-12">
-                            <small class="text-light fw-semibold">Diagram Batang</small>
-                                <div class="col-md-12 text-center">
-                                  <div id="barChart"></div>
-                                </div>
 
-                                <script type="text/javascript">
-                                window.addEventListener("load", () => {
-                                  google.charts.load('current', {
-                                    packages: ['corechart']
-                                  });
+                            <div class="card">
+                              <div class="card-body">
+                                  <div class="col-lg-12">
+                                    <small class="text-light fw-semibold">Diagram Batang</small>
+                                        <div class="col-md-12 text-center">
+                                          <div id="barChart"></div>
+                                        </div>
 
-                                  google.charts.setOnLoadCallback(drawChart);
-                                });
-                            
-                                    function drawChart() {
-                            
-                                    var data = google.visualization.arrayToDataTable([
-                                        ['STA', 'Nilai SDI'],
-                                            @php
-                                            foreach($dataBar as $r) {
-                                                echo "['".'STA '.substr_replace($r->id_sta, '+', 1, 0)."', ".$r->nilai_sdi."],";
+                                        <script type="text/javascript">
+                                        window.addEventListener("load", () => {
+                                          google.charts.load('current', {
+                                            packages: ['corechart']
+                                          });
+
+                                          google.charts.setOnLoadCallback(drawChart);
+                                        });
+                                    
+                                            function drawChart() {
+                                    
+                                            var data = google.visualization.arrayToDataTable([
+                                                ['STA', 'Nilai SDI'],
+                                                    @php
+                                                    foreach($dataBar as $r) {
+                                                        echo "['".'STA '.substr_replace($r->id_sta, '+', 1, 0)."', ".$r->nilai_sdi."],";
+                                                    }
+                                                    @endphp
+                                            ]);
+                                            var view = new google.visualization.DataView(data);
+                                            view.setColumns([0, 1, {
+                                              calc: 'stringify',
+                                              role: 'annotation',
+                                              sourceColumn: 1,
+                                              type: 'string'
+                                            }]);
+                                                                                                                                                      
+                                            var options = {
+                                                width: 1000,
+                                                height: 500,
+
+                                                colors: ['#ff4d4d'],
+                                                hAxis: { 
+                                                  direction:1, 
+                                                  slantedText:true, 
+                                                  fontsize:5, 
+                                                  slantedTextAngle:45,
+                                                },
+                                                annotations: {
+                                                  textStyle: {
+                                                    fontName: 'Times-Roman',
+                                                    fontSize: 7,
+                                                    bold: true,
+                                                    italic: true,
+                                                    color: '#871b47',
+                                                    auraColor: '#d799ae',
+                                                    opacity: 0.8
+                                                  }
+                                                },
+                                                legend: { position: 'bottom' },
+                                                chartArea:{left:40,top:40,width:"77%",height:"60%"}                                                                             
+                                              };
+                                              var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
+                                              chart.draw(view, options);
+                                              
+                                              $(window).resize(function(){
+                                              var view = new google.visualization.DataView(data);
+                                              chart.draw(view, options);
+                                              })
                                             }
-                                            @endphp
-                                    ]);
-                                    var view = new google.visualization.DataView(data);
-                                    view.setColumns([0, 1, {
-                                      calc: 'stringify',
-                                      role: 'annotation',
-                                      sourceColumn: 1,
-                                      type: 'string'
-                                    }]);
-                                                                                                                                              
-                                    var options = {
-                                        width: 800,
-                                        height: 400,
-                                        colors: ['#ff4d4d'],
-                                        hAxis: { 
-                                          direction:1, 
-                                          slantedText:true, 
-                                          fontsize:5, 
-                                          slantedTextAngle:45,
-                                        },                                                                              
-                                      };
-                                      var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
-                                      chart.draw(view, options);
-                                      
-                                      $(window).resize(function(){
-                                      var view = new google.visualization.DataView(data);
-                                      chart.draw(view, options);
-                                      })
-                                    }
-                                </script>
-                          </div>
+                                        </script>
+                                  </div>
+                              </div>
+                            </div>
                         </div>
 
                         <div class="tab-pane fade" id="navs-pills-top-case" role="tabpanel">
