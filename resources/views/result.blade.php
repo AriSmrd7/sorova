@@ -54,60 +54,64 @@
 
                     
                         <div class="tab-pane fade show active" id="navs-pills-top-primer" role="tabpanel">
-                          <div class="row">
-                            <div class="col-lg-3">
-                            <small class="text-light fw-semibold">Foto Map </small>
-                              <div class="demo-inline-spacing mt-2">
-                                <div class="col-lg-12">
-                                  <img src="{{asset('/fotomaps/'.$dataPrimer->foto_map)}}" width="100%" />
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-lg-3">
+                                <small class="text-light fw-semibold">Foto Map </small>
+                                  <div class="demo-inline-spacing mt-2">
+                                    <div class="col-lg-12">
+                                      <img src="{{asset('/fotomaps/'.$dataPrimer->foto_map)}}" width="100%" />
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
 
-                            <div class="col-lg-9">
-                            <small class="text-light fw-semibold me-5">Data Primer </small>
-                              <div class="demo-inline-spacing mt-2">
-                                <ul class="list-group">
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-map-pin me-2"></i>
-                                    <div class="col-3 me-4">Ruas Jalan</div>
-                                    <div class="text-primary">{{$dataPrimer->ruas_jalan}}</div> 
-                                  </li>
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-station me-2"></i>
-                                    <div class="col-3 me-4">Stationing</div>
-                                    <div class="text-primary">{{$dataPrimer->sta_awal}} <i class="bx bx-chevron-right"></i> {{$dataPrimer->sta_akhir}}</div>                               
-                                  </li>
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-tachometer me-2"></i>
-                                    <div class="col-3 me-4">Lebar Jalan</div>
-                                    <div class="text-primary">{{$dataPrimer->lebar}} Meter</div> 
-                                  </li>
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-trip me-2"></i>
-                                    <div class="col-3 me-4">Jumlah Lajur</div>
-                                    <div class="text-primary">{{$dataPrimer->jumlah_lajur}} Lajur</div>                               
-                                  </li>
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-sort-alt-2 me-2"></i>
-                                    <div class="col-3 me-4">Jumlah Jalur</div>
-                                    <div class="text-primary">{{$dataPrimer->jumlah_jalur}} Jalur</div>                               
-                                  </li>
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-directions me-2"></i>
-                                    <div class="col-3 me-4">Jumlah Arah</div>
-                                    <div class="text-primary">{{$dataPrimer->jumlah_arah}} Arah</div>                               
-                                  </li>
-                                  <li class="list-group-item d-flex align-items-center">
-                                    <i class="bx bx-hive me-2"></i>
-                                    <div class="col-3 me-4">Tipe Perkerasan</div>
-                                    <div class="text-primary">{{$dataPrimer->tipe_perkerasan}}</div>                               
-                                  </li>
-                                </ul>
-                              </div>
+                                <div class="col-lg-9">
+                                <small class="text-light fw-semibold me-5">Data Primer </small>
+                                  <div class="demo-inline-spacing mt-2">
+                                    <ul class="list-group">
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-map-pin me-2"></i>
+                                        <div class="col-3 me-4">Ruas Jalan</div>
+                                        <div class="text-primary">{{$dataPrimer->ruas_jalan}}</div> 
+                                      </li>
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-station me-2"></i>
+                                        <div class="col-3 me-4">Stationing</div>
+                                        <div class="text-primary">{{$dataPrimer->sta_awal}} <i class="bx bx-chevron-right"></i> {{$dataPrimer->sta_akhir}}</div>                               
+                                      </li>
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-tachometer me-2"></i>
+                                        <div class="col-3 me-4">Lebar Jalan</div>
+                                        <div class="text-primary">{{$dataPrimer->lebar}} Meter</div> 
+                                      </li>
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-trip me-2"></i>
+                                        <div class="col-3 me-4">Jumlah Lajur</div>
+                                        <div class="text-primary">{{$dataPrimer->jumlah_lajur}} Lajur</div>                               
+                                      </li>
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-sort-alt-2 me-2"></i>
+                                        <div class="col-3 me-4">Jumlah Jalur</div>
+                                        <div class="text-primary">{{$dataPrimer->jumlah_jalur}} Jalur</div>                               
+                                      </li>
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-directions me-2"></i>
+                                        <div class="col-3 me-4">Jumlah Arah</div>
+                                        <div class="text-primary">{{$dataPrimer->jumlah_arah}} Arah</div>                               
+                                      </li>
+                                      <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-hive me-2"></i>
+                                        <div class="col-3 me-4">Tipe Perkerasan</div>
+                                        <div class="text-primary">{{$dataPrimer->tipe_perkerasan}}</div>                               
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <small class="text-light fw-semibold mt-3">Tanggal Input : {{date('l, j F Y , h:i A', strtotime($dataPrimer->created_at))}} </small>
+                              </div> 
                             </div>
-                            <small class="text-light fw-semibold mt-2">Tanggal Input : {{date('l, j F Y , h:i A', strtotime($dataPrimer->created_at))}} </small>
-                          </div> 
+                          </div>
                         </div>
 
                         <div class="tab-pane fade" id="navs-pills-top-sdi" role="tabpanel">
