@@ -97,9 +97,9 @@
                             <small class="text-light fw-semibold">Table Hasil Perhitungan SDI </small>
                               <div class="demo-inline-spacing mt-2">
                                 <div class="col-12">
-                                  <div class="table-responsive">
+                                  <div class="table-responsive text-nowrap">
                                     <table class="table table-bordered">
-                                      <thead class="text-center">
+                                      <thead class="text-center table-primary">
                                         <tr>
                                           <th rowspan="2" class="align-middle" width="1%">No.</th>
                                           <th rowspan="2" class="align-middle" width="17%">STA</th>
@@ -156,9 +156,9 @@
                             <small class="text-light fw-semibold">Nilai SDI</small>
                               <div class="demo-inline-spacing mt-2">
                                 <div class="col-12">
-                                  <div class="table-responsive">
+                                  <div class="table-responsive text-nowrap">
                                     <table class="table table-bordered">
-                                      <thead class="text-center">
+                                      <thead class="text-center table-primary">
                                         <tr>
                                           <th rowspan="2" class="align-middle" width="1%">No.</th>
                                           <th rowspan="2" class="align-middle" width="25%">STA</th>
@@ -192,10 +192,10 @@
                                           </tr>
                                         @endforeach
                                       </tbody>
-                                      <tfoot>
+                                      <tfoot class="table-light">
                                         <tr>
                                           <td colspan="2">Rata-rata SDI</td>
-                                          <td colspan="5">{{$avgSta->rata_rata}}</td>
+                                          <td colspan="5">{{round($avgSta->rata_rata,2)}}</td>
                                         </tr>
                                       </tfoot>
                                     </table>
@@ -209,8 +209,8 @@
                           <div class="col-sm-12">
                             <small class="text-light fw-semibold">Pie Chart</small>
                               <div class="demo-inline-spacing mt-2">
-                                <div class="col-12 text-danger">
-                                  <div id="piechart" style="width: 1200px; height: 800px;"></div>
+                                <div class="col-12 text-center">
+                                  <div id="piechart"></div>
                                 </div>
                                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                                 <script type="text/javascript">
@@ -220,7 +220,7 @@
                                     function drawChart() {
                             
                                     var data = google.visualization.arrayToDataTable([
-                                        ['Month Name', 'Registered User Count'],
+                                        ['Kondisi Jalan', 'Persentase'],
                             
                                             @php
                                             foreach($dataPie as $d) {
@@ -231,11 +231,15 @@
                             
                                       var options = {
                                         is3D: true,
+                                        colors: ['#eb2f06', '#f6b93b', '#60a3bc', '#78e08f'],
+                                        chartArea: {width: 800, height: 600},
                                       };
                             
                                       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                             
                                       chart.draw(data, options);
+                                      
+                                      
                                     }
                                 </script>
                               </div>
@@ -244,9 +248,50 @@
                           <div class="col-sm-12">
                             <small class="text-light fw-semibold">Diagram Batang</small>
                               <div class="demo-inline-spacing mt-2">
-                                <div class="col-12 text-danger">
-                                  Under Maintenance
+                                <div class="col-12 text-center">
+                                  <div id="barChart"></div>
                                 </div>
+
+                                <script type="text/javascript">
+                                window.addEventListener("load", () => {
+                                  google.charts.load('current', {
+                                    packages: ['corechart']
+                                  });
+
+                                  google.charts.setOnLoadCallback(drawChart);
+                                });
+                            
+                                    function drawChart() {
+                            
+                                    var data = google.visualization.arrayToDataTable([
+                                        ['STA', 'Nilai SDI'],
+                                            @php
+                                            foreach($dataBar as $r) {
+                                                echo "['".'STA '.substr_replace($r->id_sta, '+', 1, 0)."', ".$r->nilai_sdi."],";
+                                            }
+                                            @endphp
+                                    ]);
+                                                                        
+                                    var options = {
+                                        width: 800,
+                                        height: 300,
+                                        seriesType: 'bars',
+                                        colors: ['#60a3bc'],
+                                        bar: {groupWidth: "55%"},
+                                        theme: 'material',
+                                        legend: { position: 'labeled' }
+                                                                              
+                                      };
+                                      var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
+                                      chart.draw(data, options);
+                                      
+                                      $(window).resize(function(){
+                                      var view = new google.visualization.DataView(data);
+                                      chart.draw(view, options);
+                                      })
+                                    }
+                                </script>
+
                               </div>
                           </div>
                         </div>
