@@ -93,4 +93,17 @@ class ResultSdi extends Model
 
         return $dataBar;
     }
+
+    public static function checkCase($data){
+        $case = $data == 'RUSAK BERAT' 
+                            ? 'REKONSTRUKSI/PENINGKATAN STRUKTUR' 
+                            : ( $data == 'RUSAK RINGAN'
+                                ? 'PEMELIHARAAN REHABILITASI' 
+                                : ( $data == 'SEDANG' 
+                                    ? 'PEMELIHARAAN RUTIN/BERKALA' 
+                                    : 'PEMELIHARAAN RUTIN'
+                                ) 
+                            );
+        return $case;
+    }
 }

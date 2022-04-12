@@ -29,6 +29,11 @@
                           Chart
                         </button>
                       </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"  data-bs-target="#navs-pills-top-case"  aria-controls="navs-pills-top-case" ria-selected="false">
+                          Metode Penanganan
+                        </button>
+                      </li>
                     </ul>
                     <div class="tab-content">
 
@@ -90,8 +95,6 @@
                         </div> 
                       </div>
 
-
-
                         <div class="tab-pane fade" id="navs-pills-top-sdi" role="tabpanel">
                           <div class="col-sm-12">
                             <small class="text-light fw-semibold">Table Hasil Perhitungan SDI </small>
@@ -149,7 +152,6 @@
                               </div>
                           </div>
                         </div>
-
 
                         <div class="tab-pane fade" id="navs-pills-top-hasil" role="tabpanel">
                           <div class="col-sm-12">
@@ -274,13 +276,12 @@
                                                                         
                                     var options = {
                                         width: 800,
-                                        height: 300,
-                                        seriesType: 'bars',
-                                        colors: ['#60a3bc'],
-                                        bar: {groupWidth: "55%"},
-                                        theme: 'material',
-                                        legend: { position: 'labeled' }
-                                                                              
+                                        height: 400,
+                                        hAxis: { 
+                                          direction:-1, 
+                                          slantedText:true,                                   
+                                          slantedTextAngle:45,
+                                        }                                                                              
                                       };
                                       var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
                                       chart.draw(data, options);
@@ -292,6 +293,38 @@
                                     }
                                 </script>
 
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="navs-pills-top-case" role="tabpanel">
+                          <div class="col-sm-12">
+                            <small class="text-light fw-semibold">Penanganan Kerusakan Berdasarkan Kondisi Jalan</small>
+                              <div class="demo-inline-spacing mt-2">
+                                <div class="col-12">
+                                  <div class="table-responsive text-nowrap">
+                                    <table class="table table-bordered">
+                                      <thead class="text-center table-primary">
+                                        <tr>
+                                          <th class="align-middle" width="1%">No.</th>
+                                          <th class="align-middle" width="15%">STA</th>
+                                          <th class="align-middle" width="15%">Kondisi Jalan</th>
+                                          <th class="align-middle" width="35%">Penanganan Kerusakan</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="text-center">
+                                        @foreach($resultData as $key => $rowRes)
+                                          <tr>
+                                            <td>{{$loop->iteration}}
+                                            <td>{{substr_replace($rowRes->id_sta, '+', 1, 0)}} ‒ @if(!$loop->last) {{substr_replace($resultData[$key+1]->id_sta, '+', 1, 0)}} @else {{substr_replace($resultData[$key]->id_sta+100, '+', 1, 0)}} @endif</td>
+                                            <td>{{$rowRes->kondisi_jalan}}</td>
+                                            <td>{{App\Models\ResultSdi::checkCase($rowRes->kondisi_jalan)}}</td>
+                                          </tr>
+                                        @endforeach
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                           </div>
                         </div>
