@@ -10,9 +10,9 @@
                 <div data-i18n="Analytics">Riwayat</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->is('ekspor*') ? 'active' : '' }}">
+            <!-- <li class="menu-item {{ request()->is('ekspor*') ? 'active' : '' }}">
               <a href="{{URL('ekspor')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-download"></i>
                 <div data-i18n="Analytics">Ekspor</div>
               </a>
-            </li>
+            </li> -->
